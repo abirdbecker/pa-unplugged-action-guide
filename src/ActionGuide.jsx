@@ -770,103 +770,167 @@ const GlobalStyles = () => (
 
     /* ─── PRINT-SPECIFIC STYLES ─── */
     @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
       body {
         background: #fff !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-      .app-shell {
-        max-width: 100%;
+        margin: 0;
         padding: 0;
       }
-      .header {
-        padding: 24px 0;
-        break-after: avoid;
-      }
-      .header::before {
-        display: none;
-      }
-      .header-badge {
-        background: var(--forest) !important;
-        color: #fff !important;
-      }
+      /* Hide ALL web UI elements */
+      .app-shell,
+      .header,
       .intro-section,
       .survey-prompt,
       .progress-track,
       .accordion-section,
+      .card,
       .clear-progress-row,
       .save-indicator,
       .export-section,
-      .btn-ghost,
-      .yn-row:not(.print-show),
-      .hw-button-row,
-      .hw-hint-toggle,
-      .hw-hint-body,
-      .export-card {
+      .modal-overlay {
         display: none !important;
       }
+      /* Show only the print view */
       .print-view {
         display: block !important;
-      }
-      .print-view .card {
-        box-shadow: none;
-        border: 1px solid #ddd;
-        page-break-inside: avoid;
-        margin-bottom: 16px;
-      }
-      .print-view .action-block {
-        background: #f0f7f0 !important;
-        border-color: #4caf50 !important;
-        page-break-inside: avoid;
-      }
-      .print-view .watch-block {
-        background: #f9f7f4 !important;
-        page-break-inside: avoid;
+        max-width: 100%;
+        margin: 0;
+        padding: 40px 50px;
+        font-family: 'Inter Tight', Georgia, serif;
+        font-size: 11pt;
+        line-height: 1.5;
+        color: #2d5a3d;
       }
       .print-header {
         text-align: center;
-        margin-bottom: 32px;
-        padding-bottom: 24px;
-        border-bottom: 2px solid var(--forest);
+        margin-bottom: 28px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #2d5a3d;
       }
       .print-header-logo {
-        max-width: 200px;
+        max-width: 180px;
         height: auto;
-        margin-bottom: 16px;
+        margin-bottom: 12px;
       }
       .print-header h1 {
         font-family: 'Barlow Condensed', sans-serif;
-        font-size: 36px;
+        font-size: 28pt;
         font-weight: 800;
-        color: var(--forest);
+        color: #2d5a3d;
         text-transform: uppercase;
-        margin-bottom: 8px;
+        letter-spacing: 1px;
+        margin: 0 0 8px 0;
       }
-      .print-header p {
-        font-size: 14px;
-        color: var(--forest-mid);
+      .print-header .print-date {
+        font-size: 10pt;
+        color: #5a7a62;
+        margin: 0;
+      }
+      .print-preamble {
+        background: #f5f7f4;
+        border-left: 4px solid #2d5a3d;
+        padding: 16px 20px;
+        margin-bottom: 24px;
+        font-size: 10.5pt;
+        line-height: 1.6;
+      }
+      .print-preamble p {
+        margin: 0;
       }
       .print-section {
-        margin-bottom: 24px;
+        margin-bottom: 20px;
+        page-break-inside: avoid;
       }
       .print-section-title {
         font-family: 'Barlow Condensed', sans-serif;
-        font-size: 20px;
+        font-size: 14pt;
         font-weight: 700;
-        color: var(--forest);
+        color: #2d5a3d;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        margin-bottom: 16px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid var(--sand);
+        margin-bottom: 12px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #d4cdc1;
+      }
+      .print-action-item {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 12px;
+        padding: 10px 14px;
+        background: #edf7ee;
+        border-left: 3px solid #4caf50;
+        page-break-inside: avoid;
+      }
+      .print-action-num {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 700;
+        font-size: 12pt;
+        color: #4caf50;
+        flex-shrink: 0;
+      }
+      .print-action-content strong {
+        display: block;
+        font-size: 11pt;
+        margin-bottom: 2px;
+      }
+      .print-action-content span {
+        font-size: 10pt;
+        color: #3d7a52;
+      }
+      .print-watch-item {
+        margin-bottom: 10px;
+        padding: 10px 14px;
+        background: #f9f7f4;
+        border-left: 3px solid #b8bfad;
+        font-size: 10pt;
+        page-break-inside: avoid;
+      }
+      .print-watch-item strong {
+        display: block;
+        margin-bottom: 2px;
+        color: #2d5a3d;
+      }
+      .print-watch-item span {
+        color: #5a7a62;
+      }
+      .print-resources {
+        page-break-before: auto;
+      }
+      .print-resource-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .print-resource-item {
+        padding: 10px 12px;
+        background: #f5f7f4;
+        border-radius: 6px;
+        font-size: 9.5pt;
+        page-break-inside: avoid;
+      }
+      .print-resource-item strong {
+        display: block;
+        font-size: 10pt;
+        color: #2d5a3d;
+        margin-bottom: 2px;
+      }
+      .print-resource-item span {
+        color: #5a7a62;
+        font-size: 9pt;
       }
       .print-footer {
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px solid var(--sand);
+        margin-top: 30px;
+        padding-top: 16px;
+        border-top: 1px solid #d4cdc1;
         text-align: center;
-        font-size: 12px;
-        color: var(--forest-mid);
+        font-size: 10pt;
+        color: #5a7a62;
+      }
+      .print-footer strong {
+        color: #2d5a3d;
       }
     }
 
@@ -1974,78 +2038,71 @@ Learn more at paunplugged.org`;
         <div className="print-header">
           <img src="/logo.png" alt="PA Unplugged" className="print-header-logo" />
           <h1>Your Ed Tech Action Guide</h1>
-          <p>Generated {new Date().toLocaleDateString()}</p>
+          <p className="print-date">Generated {new Date().toLocaleDateString()}</p>
         </div>
 
-        {/* School Setup */}
-        <div className="print-section">
-          <div className="print-section-title">Your School Setup</div>
-          <p style={{ marginBottom: 12 }}>
-            <strong>Device model:</strong> {is11 ? "1:1 (each student has their own device)" : "Shared devices (computer lab or cart)"}
-          </p>
+        {/* Preamble */}
+        <div className="print-preamble">
           <p>
-            <strong>Documents found:</strong>{" "}
-            {Object.entries(hwStatus)
-              .filter(([_, status]) => status === "found")
-              .map(([id]) => HW_ITEMS.find(item => item.id === id)?.label)
-              .join(", ") || "None"}
+            This personalized guide was created based on your answers about technology use at your school.
+            Use it to start conversations with teachers, administrators, and school board members.
+            Small changes add up — every question you ask and every policy you push for helps create a healthier tech environment for all students.
           </p>
-          {Object.entries(hwStatus).filter(([_, status]) => status === "not_found").length > 0 && (
-            <p style={{ marginTop: 8 }}>
-              <strong>Documents not found:</strong>{" "}
-              {Object.entries(hwStatus)
-                .filter(([_, status]) => status === "not_found")
-                .map(([id]) => HW_ITEMS.find(item => item.id === id)?.label)
-                .join(", ")}
-            </p>
-          )}
         </div>
 
         {/* Action Items */}
-        {collectedActions.length > 0 && (
-          <div className="print-section">
-            <div className="print-section-title">Your Action Items</div>
-            {collectedActions.map((action, i) => (
-              <div key={action.id} className="action-block" style={{ marginTop: i > 0 ? 12 : 0 }}>
-                <div className="action-block-header">
-                  <span className="action-tag">Action {i + 1}</span>
+        <div className="print-section">
+          <div className="print-section-title">Your Action Items</div>
+          {collectedActions.length > 0 ? (
+            collectedActions.map((action, i) => (
+              <div key={action.id} className="print-action-item">
+                <span className="print-action-num">{i + 1}.</span>
+                <div className="print-action-content">
+                  <strong>{action.title}</strong>
+                  <span>{action.detail}</span>
                 </div>
-                <p><strong>{action.title}</strong></p>
-                <p style={{ marginTop: 4 }}>{action.detail}</p>
               </div>
-            ))}
-          </div>
-        )}
-
-        {collectedActions.length === 0 && (
-          <div className="print-section">
-            <div className="print-section-title">Your Action Items</div>
-            <div className="info-block">
-              <p><strong>Great news!</strong> Based on your answers, your school is already doing well on the basics. No immediate action items needed.</p>
-            </div>
-          </div>
-        )}
+            ))
+          ) : (
+            <p style={{ fontStyle: 'italic', color: '#5a7a62' }}>
+              Great news! Based on your answers, your school is already doing well on the basics. Keep monitoring the items below.
+            </p>
+          )}
+        </div>
 
         {/* Watch Items */}
         {watchItems.length > 0 && (
           <div className="print-section">
             <div className="print-section-title">Things to Keep Watching</div>
-            {watchItems.map((item, i) => (
-              <div key={item.qNum} className="watch-block" style={{ marginTop: i > 0 ? 12 : 0 }}>
-                <div className="watch-block-header">
-                  <span className="watch-tag">Monitor</span>
-                </div>
-                <p><strong>{item.text}</strong></p>
-                <p style={{ marginTop: 4 }}>{item.watchFor}</p>
+            {watchItems.map((item) => (
+              <div key={item.qNum} className="print-watch-item">
+                <strong>{item.text}</strong>
+                <span>{item.watchFor}</span>
               </div>
             ))}
           </div>
         )}
 
+        {/* Resources */}
+        <div className="print-section print-resources">
+          <div className="print-section-title">Key Resources</div>
+          <div className="print-resource-grid">
+            {RESOURCES.slice(0, 6).map((r) => (
+              <div key={r.id} className="print-resource-item">
+                <strong>{r.title}</strong>
+                <span>{r.desc}</span>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize: '9pt', marginTop: '10px', color: '#5a7a62' }}>
+            Access all resources with clickable links at paunplugged.org
+          </p>
+        </div>
+
         {/* Footer */}
         <div className="print-footer">
-          <p>Learn more and connect with other parents at <strong>paunplugged.org</strong></p>
-          <p style={{ marginTop: 4 }}>Take our Ed Tech Survey: paunplugged.org/ed-tech-survey</p>
+          <p><strong>PA Unplugged</strong> — Collective action starts here.</p>
+          <p>paunplugged.org • Take our Ed Tech Survey: paunplugged.org/ed-tech-survey</p>
         </div>
       </div>
 
