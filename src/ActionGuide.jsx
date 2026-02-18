@@ -1501,7 +1501,7 @@ const RESOURCES = [
     icon: "📖",
     title: "The Digital Delusion — Dr. Jared Cooney Horvath",
     desc: "Must read. The most important book for understanding why ed tech isn't working the way we've been told.",
-    link: "https://www.jaredcooney.com/the-digital-delusion",
+    link: "https://www.amazon.com/Digital-Delusion-Classroom-Technology-Learning/dp/B0G5622DQQ",
     body: (
       <>
         <p>Neuroscientist Dr. Jared Cooney Horvath dismantles the myths driving ed tech adoption — from "digital natives" to "personalized learning" — using peer-reviewed research and clear, accessible language.</p>
