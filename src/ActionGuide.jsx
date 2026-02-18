@@ -342,6 +342,7 @@ const GlobalStyles = () => (
     .yn-btn:hover { border-color: var(--forest-light); background: var(--warm); }
     .yn-btn.yes { border-color: var(--green-accent); background: var(--green-accent-bg); color: var(--forest); }
     .yn-btn.no  { border-color: var(--sage); background: var(--forest-pale); color: var(--forest-mid); }
+    .yn-btn.idk { border-color: #e0a840; background: #fef9ec; color: var(--forest); }
 
     /* ─── BUTTONS ─── */
     .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
@@ -431,6 +432,32 @@ const GlobalStyles = () => (
       font-weight: 700;
     }
 
+    /* ─── IDK ACTION BLOCK ─── */
+    .idk-action-block {
+      background: #fef9ec;
+      border: 2px solid #e0a840;
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-top: 16px;
+      animation: fadeIn 0.3s ease;
+    }
+    .idk-tag {
+      background: #e0a840;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .idk-action-block p {
+      font-size: 14px;
+      color: var(--forest);
+      line-height: 1.55;
+    }
+
     /* ─── INFO BLOCK ─── */
     .info-block {
       background: var(--forest-pale);
@@ -495,6 +522,10 @@ const GlobalStyles = () => (
       border-color: var(--sage);
       background: var(--forest-pale);
     }
+    .question-row.answered-idk {
+      border-color: #e0a840;
+      background: #fef9ec;
+    }
     .question-row-header {
       display: flex;
       align-items: flex-start;
@@ -521,6 +552,10 @@ const GlobalStyles = () => (
       background: var(--sage);
       color: #fff;
     }
+    .question-row.answered-idk .question-num {
+      background: #e0a840;
+      color: #fff;
+    }
     .question-text {
       flex: 1;
       font-size: 14px;
@@ -544,6 +579,10 @@ const GlobalStyles = () => (
     .question-answer-badge.no {
       background: var(--sage);
       color: var(--forest);
+    }
+    .question-answer-badge.idk {
+      background: #e0a840;
+      color: #fff;
     }
     .question-details {
       margin-top: 12px;
@@ -1116,6 +1155,177 @@ const GlobalStyles = () => (
       color: var(--forest-mid);
       margin-bottom: 20px;
     }
+    /* ─── EMAIL DRAFT SECTION ─── */
+    .email-draft-section {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 2px solid var(--sage);
+      text-align: left;
+    }
+    .email-draft-section h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--forest);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .email-draft-section > p {
+      font-size: 14px;
+      color: var(--forest-mid);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .email-step-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--forest-mid);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+    .email-option-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .email-option-btn {
+      flex: 1;
+      min-width: 140px;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 16px;
+      border-radius: 8px;
+      border: 2px solid var(--sand);
+      background: #fff;
+      color: var(--forest);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .email-option-btn:hover {
+      border-color: var(--forest-light);
+      background: var(--warm);
+    }
+    .email-option-btn.selected {
+      border-color: var(--green-accent);
+      background: var(--green-accent-bg);
+      color: var(--forest);
+    }
+    .email-draft-card {
+      background: #fff;
+      border: 1.5px solid var(--sand);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 20px;
+      animation: slideUp 0.35s cubic-bezier(.4,0,.2,1);
+    }
+    .email-draft-subject {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--forest-pale);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .email-draft-subject strong {
+      font-size: 13px;
+      color: var(--forest-mid);
+      flex-shrink: 0;
+    }
+    .email-draft-subject span {
+      font-size: 14px;
+      color: var(--forest);
+      font-weight: 500;
+    }
+    .email-draft-body {
+      font-family: 'Inter Tight', Georgia, serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--forest);
+      padding: 20px;
+      background: #fafaf8;
+      border: 1px solid var(--sand);
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+    .email-draft-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .email-share-card {
+      margin-top: 20px;
+      padding: 20px;
+      background: var(--forest-pale);
+      border: 1.5px solid #c5dece;
+      border-radius: var(--radius);
+    }
+    .email-share-card h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--forest);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .email-share-card > p {
+      font-size: 13px;
+      color: var(--forest-mid);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .email-share-body {
+      font-family: 'Inter Tight', Georgia, serif;
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--forest);
+      padding: 16px;
+      background: #fff;
+      border: 1px solid var(--sand);
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+
+    /* Print: hide email draft section */
+    @media print {
+      .email-draft-section {
+        display: none !important;
+      }
+    }
+
+    /* Print: show email in print view */
+    .print-email-section {
+      display: none;
+    }
+    @media print {
+      .print-email-section {
+        display: block;
+      }
+      .print-email-subject {
+        font-size: 11pt;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #2d5a3d;
+      }
+      .print-email-body {
+        font-size: 10pt;
+        line-height: 1.6;
+        color: #2d5a3d;
+        padding: 12px 16px;
+        background: #f9f9f7;
+        border: 1px solid #d4cdc1;
+        border-radius: 6px;
+        white-space: pre-wrap;
+      }
+    }
   `}</style>
 );
 
@@ -1124,10 +1334,23 @@ const ACTION_MAP = {
   1: { id: "q1", title: "Keep devices at school", detail: "Push for devices to stay at school through at least 5th grade — ideally through middle school." },
   2: { id: "q2", title: "No devices during non-instructional time", detail: "Advocate for a clear policy: no device use during arrival, dismissal, recess, or downtime." },
   3: { id: "q3", title: "Remove screentime as reward", detail: "Advocate for eliminating screentime and screen-based activities as a reward or choice time option. Offer to help supply non-screen alternatives." },
-  4: { id: "q4", title: "Restrict YouTube, chatbots & browser", detail: "Remove YouTube and chatbot access. Restrict the browser — push for whitelisting so only approved sites are accessible." },
+  "4-both": { id: "q4-both", title: "Restrict YouTube, chatbots & browser", detail: "Remove YouTube and generative AI chatbot access. Restrict the browser — push for whitelisting so only approved sites are accessible." },
+  "4-youtube": { id: "q4-youtube", title: "Remove YouTube access", detail: "Push to remove YouTube from student devices. Even 'educational' videos lead to endless autoplay rabbit holes." },
+  "4-ai": { id: "q4-ai", title: "Remove generative AI chatbot access", detail: "Push to remove access to ChatGPT, Gemini, and other generative AI chatbots that can do students' work for them." },
   5: { id: "q5", title: "Request app transparency", detail: "Request a full list of all apps/platforms used, the criteria for evaluating them, and how apps get integrated into curriculum." },
   6: { id: "q6", title: "Track and limit screentime", detail: "Ask the district to track and limit daily screentime, and to communicate those limits to parents." },
   7: { id: "q7", title: "Understand device vs. analog use", detail: "Talk to your child's teacher to understand how devices are used — are kids reading physical books or screens? Writing by hand or typing? Researching in books or just using search engines?" },
+};
+
+/* ─── IDK ACTION MAP (collected on "I don't know" answers) ─── */
+const IDK_ACTION_MAP = {
+  1: { id: "q1-idk", title: "Find out if devices go home", detail: "Ask your child's teacher or the front office whether students bring devices home — and if so, starting in which grade.", nextStep: "If they do, push for devices to stay at school — especially through elementary and ideally middle school. If they don't yet, find out when that changes and consider pushing to delay it." },
+  2: { id: "q2-idk", title: "Find out about device use during downtime", detail: "Ask your child's teacher whether devices are allowed during arrival, dismissal, recess, or other non-instructional times.", nextStep: "If they are, advocate for a clear policy: no device use during non-instructional times. Kids need those unstructured moments for socializing and real breaks. If they aren't, great — but keep an eye on it, since unstructured device time is one of the easiest things to creep back in." },
+  3: { id: "q3-idk", title: "Find out if screens are used as rewards", detail: "Ask your child or their teacher whether games, apps, or screen time are ever used as a reward or choice-time activity.", nextStep: "If so, advocate for eliminating screen-based rewards and offer to help supply non-screen alternatives like books, games, or art supplies. If not, that's good — ask your child occasionally to make sure it stays that way." },
+  4: { id: "q4-idk", title: "Find out about YouTube & generative AI chatbot access", detail: "Ask the school whether students can access YouTube, generative AI chatbots (like ChatGPT or Gemini), or an open web browser on their devices.", nextStep: "If they can, push for YouTube and chatbot access to be removed and for the browser to be restricted — ideally whitelisted so only approved sites are accessible. If they can't, good — but new tools get added quickly, so check in periodically." },
+  5: { id: "q5-idk", title: "Request the approved app list", detail: "Ask the district for a full list of approved apps and platforms, including how they're evaluated and who approves them.", nextStep: "If they can't provide one, that's a transparency gap worth raising. Every app collects data, and parents deserve to know what tools their kids are using. If they can, review it and make sure you understand how new apps get added." },
+  6: { id: "q6-idk", title: "Find out how much daily screentime your child has", detail: "Ask the teacher or district how much time students spend on devices each day — and whether anyone is tracking it.", nextStep: "If they're not tracking it, push for daily limits and transparent reporting. You can't manage what you don't measure. If they are, find out what the limits are and whether they're being enforced." },
+  7: { id: "q7-idk", title: "Find out how devices vs. analog tools are balanced", detail: "Ask your child's teacher how much work is done on devices versus with paper, pencil, and physical books.", nextStep: "If analog activities like handwriting, reading physical books, or hands-on research are being replaced by screens, that's where you can push for change. If there's a healthy balance, great — stay engaged so it stays that way." },
 };
 
 /* ─── QUESTION DEFINITIONS ──────────────────────────────────────────────── */
@@ -1144,7 +1367,7 @@ const QUESTIONS = {
         <p style={{ marginTop: 10 }}>If your school already sends devices home, ask what the rationale is and whether there's flexibility to opt out or keep them at school.</p>
       </div>
     ),
-    watchFor: "Good — devices staying at school in elementary school is a strong baseline. Find out if and when that changes. If devices start going home in middle school, consider pushing to delay it or limit the number of days per week they come home.",
+    watchFor: "Good — devices staying at school is a strong baseline. Find out when that changes — what grade do devices start going home? If it's middle school, consider pushing to delay it or limit the number of days per week they come home.",
   },
   2: {
     text: "Does the school allow device use during arrival, dismissal, recess, or downtime?",
@@ -1174,20 +1397,47 @@ const QUESTIONS = {
     watchFor: "Good — using screens as a reward is a hard habit for teachers to break once it starts. Ask your child occasionally whether games or apps ever come up as a treat in class.",
   },
   4: {
-    text: "Does the school allow access to YouTube or AI chatbots?",
+    text: "Does the school allow access to YouTube or generative AI chatbots (e.g. ChatGPT, Gemini)?",
     sub: null,
-    actionText: "Remove YouTube and chatbot access from student devices. Restrict the internet browser. Consider pushing for whitelisting — only approved sites should be accessible.",
-    action: (
-      <div className="action-block">
-        <div className="action-block-header"><span className="action-tag">Action</span></div>
-        <ul>
-          <li>Remove YouTube and chatbot access from student devices</li>
-          <li>Restrict the internet browser</li>
-          <li>Consider pushing for <strong>whitelisting</strong> — only approved sites should be accessible</li>
-        </ul>
-        <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> YouTube is a rabbit hole — even "educational" videos lead to endless recommendations via autoplay, often irrelevant and sometimes inappropriate. It's a major problem for many kids and should be blocked entirely. AI chatbots can do students' work for them, bypassing the learning process. An open browser is an open door. Whitelisting ensures kids can only access what's been intentionally approved.</p>
-      </div>
-    ),
+    multiOption: true,
+    options: [
+      { value: "both", label: "Yes, both" },
+      { value: "youtube", label: "YouTube only" },
+      { value: "ai", label: "Generative AI only" },
+      { value: "neither", label: "Neither" },
+      { value: "idk", label: "I don't know" },
+    ],
+    actionText: "Remove YouTube and generative AI chatbot access from student devices. Restrict the internet browser. Consider pushing for whitelisting — only approved sites should be accessible.",
+    actions: {
+      both: (
+        <div className="action-block">
+          <div className="action-block-header"><span className="action-tag">Action</span></div>
+          <ul>
+            <li>Remove YouTube access from student devices</li>
+            <li>Remove generative AI chatbot access (ChatGPT, Gemini, etc.)</li>
+            <li>Restrict the internet browser — push for <strong>whitelisting</strong> so only approved sites are accessible</li>
+          </ul>
+          <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> YouTube is a rabbit hole — even "educational" videos lead to endless recommendations via autoplay, often irrelevant and sometimes inappropriate. Generative AI chatbots can do students' work for them, bypassing the learning process entirely. An open browser is an open door. Whitelisting ensures kids can only access what's been intentionally approved.</p>
+        </div>
+      ),
+      youtube: (
+        <div className="action-block">
+          <div className="action-block-header"><span className="action-tag">Action</span></div>
+          <p><strong>Push to remove YouTube access from student devices.</strong></p>
+          <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> YouTube is a rabbit hole — even "educational" videos lead to endless recommendations via autoplay, often irrelevant and sometimes inappropriate. It's a major distraction and should be blocked entirely. If teachers need to show a video, they can use a shared screen.</p>
+          <p style={{ marginTop: 10 }}>Good that generative AI chatbots are already restricted — make sure that stays in place as new AI tools emerge.</p>
+        </div>
+      ),
+      ai: (
+        <div className="action-block">
+          <div className="action-block-header"><span className="action-tag">Action</span></div>
+          <p><strong>Push to remove generative AI chatbot access (ChatGPT, Gemini, etc.) from student devices.</strong></p>
+          <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> Generative AI chatbots can do students' work for them — writing essays, solving math problems, answering questions — completely bypassing the learning process. Students need to develop these skills themselves, not outsource them to a chatbot.</p>
+          <p style={{ marginTop: 10 }}>Good that YouTube is already blocked — make sure it stays that way.</p>
+        </div>
+      ),
+      neither: null,
+    },
     watchFor: "Good — but new apps and AI tools get added quickly. Ask your child what sites or tools they use in class. If something new shows up, it's worth checking whether it was formally approved.",
   },
   5: {
@@ -1237,10 +1487,10 @@ const QUESTIONS = {
 
 /* ─── HOMEWORK ITEMS ─── */
 const HW_ITEMS = [
-  { id: "policy", label: "School board policy / handbook rules", desc: "The official rules governing how devices are used, stored, and managed at school.", hint: "Check the district website under Policies, School Board, or Board of Education." },
-  { id: "philosophy", label: "Technology philosophy or position statement", desc: "The district's stated beliefs about the role of technology in education.", hint: "Could be found on your district's website under Curriculum, Academics, or About. Try searching the site for \"screen time\" or \"technology vision\" or \"technology position statement.\" If nothing comes up, that itself is useful information." },
-  { id: "curriculum", label: "Digital literacy curriculum", desc: "What students are taught about using technology responsibly and safely.", hint: "Look under Curriculum or Instruction on the district site. If you can't find it, try emailing the curriculum director — they'll know whether one exists or if it's something the district hasn't adopted yet." },
-  { id: "ai", label: "AI guidelines & policy", desc: "Rules about whether and how AI tools like ChatGPT can be used by students.", hint: "This is newer territory for most districts. Many schools are still figuring this out, so you may hear \"we don't have one yet.\" Hopefully — they're working on one! More on that later." },
+  { id: "policy", label: "School board policy / handbook rules", desc: "The official rules governing how devices are used, stored, and managed at school.", hint: "Check the district website under Policies, School Board, or Board of Education.", notFound: "That's actually useful to know — it means there may not be a clear, accessible policy (which is worth raising)." },
+  { id: "philosophy", label: "Technology philosophy or position statement", desc: "The district's stated beliefs about the role of technology in education.", hint: "Could be found on your district's website under Curriculum, Academics, or About. Try searching the site for \"screen time\" or \"technology vision\" or \"technology position statement.\" If nothing comes up, that itself is useful information.", notFound: "Most districts don't publish one. If they can't articulate their philosophy, that's a conversation worth starting." },
+  { id: "curriculum", label: "Digital literacy curriculum", desc: "What students are taught about using technology responsibly and safely.", hint: "Look under Curriculum or Instruction on the district site. If you can't find it, try emailing the curriculum director — they'll know whether one exists or if it's something the district hasn't adopted yet.", notFound: "Not unusual — many districts haven't formalized this yet." },
+  { id: "ai", label: "AI guidelines & policy", desc: "Rules about whether and how AI tools like ChatGPT can be used by students.", hint: "This is newer territory for most districts. Many schools are still figuring this out, so you may hear \"we don't have one yet.\" Hopefully — they're working on one! More on that later.", notFound: "No surprise here — most districts are still figuring this out. But it's important they start." },
 ];
 
 /* ─── RESOURCES ─── */
@@ -1294,6 +1544,42 @@ const RESOURCES = [
           <li>FAQs about student data privacy</li>
           <li>Guidance on navigating school technology policies</li>
         </ul>
+      </>
+    ),
+  },
+  {
+    id: "screenstrong-courses",
+    icon: "🎓",
+    title: "ScreenStrong Courses & Guides",
+    desc: "The best independent, evidence-based resource for schools to teach students and parents about healthy technology use.",
+    link: "https://screenstrong.org/products/",
+    body: (
+      <>
+        <p>ScreenStrong offers ready-to-use educational resources for schools, including:</p>
+        <ul>
+          <li><strong>Student Education Course:</strong> Evidence-based curriculum teaching kids about the effects of screens on their brains, bodies, and relationships</li>
+          <li><strong>Parent Education Course:</strong> Helps parents understand the research and set healthy boundaries at home</li>
+          <li><strong>Family & Educator Guides:</strong> Practical tools for implementing screen-healthy practices in classrooms and households</li>
+        </ul>
+        <p style={{ marginTop: 8 }}>If your school is looking for a digital citizenship or screen awareness curriculum, this is the gold standard. It's independent, research-backed, and designed for real classroom use.</p>
+      </>
+    ),
+  },
+  {
+    id: "scope-sequence",
+    icon: "📋",
+    title: "Technology Scope & Sequence (Skills by Grade)",
+    desc: "Kids who can swipe through an iPad can't necessarily create a folder, format a document, or evaluate a website. This maps the real skills they should be learning.",
+    link: "https://drive.google.com/file/d/1_DAPQDxVhlg6nDjVB-vaobDTpccjKFcn/view?usp=drive_link",
+    body: (
+      <>
+        <p>There's a common assumption that today's kids are "digital natives" who intuitively understand technology. The reality is more complicated. While children are comfortable swiping through tablets, many lack foundational computer skills that previous generations learned through necessity: typing, organizing files, navigating operating systems, and troubleshooting problems.</p>
+        <ul>
+          <li>Maps specific transferable skills (typing, file management, online safety, digital citizenship) from K through 12</li>
+          <li>Distinguishes between Beginning, Developing, and Secure at each grade level</li>
+          <li>Aligned with ISTE standards, adopted or adapted by several state departments of education</li>
+        </ul>
+        <p style={{ marginTop: 8 }}>When schools default to simplified tablet interfaces or single-purpose apps, students miss opportunities to develop skills that directly affect academic independence and college/career readiness. This framework shows what intentional tech education actually looks like.</p>
       </>
     ),
   },
@@ -1384,6 +1670,101 @@ const RESOURCES = [
   },
 ];
 
+/* ─── EMAIL TEMPLATE ENGINE ─── */
+function generateEmail({ recipient, actionItems }) {
+  const topItems = actionItems.slice(0, 3);
+  const hasMore = actionItems.length > 3;
+
+  const greetings = {
+    teacher: "Dear [Teacher's Name],",
+    principal: "Dear [Principal's Name],",
+    board: "Dear Members of the [District Name] School Board,",
+  };
+
+  const subjects = {
+    teacher: "Questions about classroom technology use",
+    principal: "Questions about school technology policies",
+    board: "Parent inquiry regarding district technology policies",
+  };
+
+  const openings = {
+    teacher: `I hope this finds you well. I'm the parent of [child's name] in your class, and I've been spending some time learning about how technology is being used in schools — not because I have concerns about your teaching, but because I want to be a more informed and helpful parent when it comes to the tech side of things.`,
+    principal: `I'm the parent of a student at [Your School], and I've recently been looking into how educational technology is being used at the school level. I've been impressed by some of what I've learned, and I have a few questions I'd love to explore with you.`,
+    board: `My name is [Your Name], and I'm a parent in the [District Name] district. I've been researching how educational technology is being used in our schools, and I'd like to respectfully raise a few questions for the board's consideration.`,
+  };
+
+  const buildAsks = () => {
+    const asks = topItems.map((item) => {
+      const askMap = {
+        q1: "how the school handles devices going home — specifically whether there's flexibility to keep them at school, especially in the younger grades",
+        q2: "whether there are guidelines around device use during non-instructional times like recess, arrival, and dismissal",
+        q3: "how screen-based rewards or choice-time activities factor into the classroom — and whether non-screen alternatives could be prioritized",
+        "q4-both": "what access controls are in place for things like YouTube, generative AI chatbots, and open web browsing on student devices",
+        "q4-youtube": "whether YouTube access on student devices could be restricted, since even 'educational' videos lead to autoplay rabbit holes",
+        "q4-ai": "whether access to generative AI chatbots like ChatGPT and Gemini could be restricted on student devices",
+        "q4-idk": "what access controls are in place for things like YouTube, generative AI chatbots, and open web browsing on student devices",
+        q5: "whether there's a published list of approved apps and platforms, along with the criteria used to evaluate them",
+        q6: "whether daily screen time is being tracked and whether there are guidelines for how much time students spend on devices each day",
+        q7: "how the balance between device-based and hands-on learning works in practice — things like physical books vs. screens, handwriting vs. typing, and research skills",
+      };
+      return askMap[item.id] || item.detail.toLowerCase();
+    });
+
+    if (asks.length === 1) {
+      return `Specifically, I'd love to understand ${asks[0]}.`;
+    } else {
+      return `Specifically, I'd love to understand:\n\n${asks.map(a => `- ${a}`).join('\n')}`;
+    }
+  };
+
+  const moreNote = hasMore
+    ? `\n\nI have a few other areas I've been thinking about as well, and would welcome the chance to discuss them.`
+    : "";
+
+  const closes = {
+    teacher: `I'm not looking to add to your plate — I know teachers are pulled in a hundred directions. I'd just appreciate a few minutes to chat about this, whether by email, phone, or at pickup. I want to be a partner in making sure the tech our kids use is really working for them.\n\nThank you for everything you do.`,
+    principal: `I'd welcome the chance to discuss these questions with you — even briefly. I'm approaching this as a partner, not a critic, and I believe small adjustments can make a big difference for our students.\n\nWould you be open to a brief meeting or phone call? I'm happy to work around your schedule.`,
+    board: `I would appreciate the opportunity to discuss these questions further, whether through a meeting or at an upcoming public comment session. I believe that parent input on technology decisions helps ensure the best outcomes for students.\n\nThank you for your service to our community and your attention to this matter.`,
+  };
+
+  const body = `${greetings[recipient]}
+
+${openings[recipient]}
+
+${buildAsks()}${moreNote}
+
+${closes[recipient]}
+
+Sincerely,
+[Your Name]
+Parent at [Your School]`;
+
+  return { subject: subjects[recipient], body };
+}
+
+// Generate the "rally other parents" message
+function generateParentRallyMessage(actionItems) {
+  const topItems = actionItems.slice(0, 3);
+  const itemsList = topItems
+    .map((item) => `- ${item.title}: ${item.detail}`)
+    .join("\n");
+
+  return {
+    subject: "Let's talk about how tech is being used at our school",
+    body: `Hi! I've been looking into how technology is being used at [Your School], and I think it's worth having a conversation with the school about it.
+
+Here are some of the key things I've found:
+
+${itemsList}
+
+I'm not trying to be adversarial — just an informed parent who wants to make sure the tech our kids are using is actually helping them learn. The more parents who raise these questions, the more likely we are to see meaningful change.
+
+If you're interested, I'm planning to reach out to [the teacher / the principal / the school board] about this. Even if you just want to learn more, I'd love to chat. The more of us who are informed and asking questions, the better.
+
+Would you be interested in joining the conversation?`,
+  };
+}
+
 /* ─── STORAGE KEY ─── */
 const STORAGE_KEY = "pa-unplugged-progress";
 
@@ -1406,6 +1787,8 @@ export default function ActionGuide() {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [pendingAction, setPendingAction] = useState(null); // 'print' or 'copy'
+  const [emailRecipient, setEmailRecipient] = useState(null); // 'teacher' | 'principal' | 'board' | 'parents'
+  const [emailCopied, setEmailCopied] = useState(false);
   const printRef = useRef(null);
 
   // Load from localStorage on mount
@@ -1501,7 +1884,9 @@ export default function ActionGuide() {
     const actionText = collectedActions.map((a, i) => `${i + 1}. ${a.title}\n   ${a.detail}`).join('\n\n');
     const watchText = Object.entries(answers)
       .filter(([qNum, val]) => {
+        if (val === "idk") return false;
         const q = QUESTIONS[parseInt(qNum)];
+        if (q.multiOption) return val === "neither";
         return q.reverseLogic ? val === true : val === false;
       })
       .map(([qNum]) => {
@@ -1557,7 +1942,6 @@ Learn more at paunplugged.org`;
           performCopy();
         }
         setPendingAction(null);
-        setEmailSubmitted(false);
         setEmailFormData({ firstName: '', lastName: '', email: '' });
       }, 1500);
 
@@ -1574,7 +1958,6 @@ Learn more at paunplugged.org`;
           performCopy();
         }
         setPendingAction(null);
-        setEmailSubmitted(false);
       }, 1500);
     } finally {
       setEmailSubmitting(false);
@@ -1597,19 +1980,29 @@ Learn more at paunplugged.org`;
 
   const collectedActions = Object.entries(answers)
     .filter(([qNum, val]) => {
-      const q = QUESTIONS[parseInt(qNum)];
-      // For reversed questions, action is needed on "No" (false)
-      // For normal questions, action is needed on "Yes" (true)
+      const num = parseInt(qNum);
+      const q = QUESTIONS[num];
+      if (val === "idk") return true;
+      // Q4 multi-option: action needed for "both", "youtube", "ai"
+      if (q.multiOption) return val === "both" || val === "youtube" || val === "ai";
       return q.reverseLogic ? val === false : val === true;
     })
-    .map(([qNum]) => ACTION_MAP[parseInt(qNum)])
+    .map(([qNum, val]) => {
+      const num = parseInt(qNum);
+      const q = QUESTIONS[num];
+      if (val === "idk") return IDK_ACTION_MAP[num];
+      if (q.multiOption) return ACTION_MAP[`${num}-${val}`];
+      return ACTION_MAP[num];
+    })
     .filter(Boolean);
 
   const watchItems = Object.entries(answers)
     .filter(([qNum, val]) => {
-      const q = QUESTIONS[parseInt(qNum)];
-      // For reversed questions, watch is shown on "Yes" (true)
-      // For normal questions, watch is shown on "No" (false)
+      if (val === "idk") return false;
+      const num = parseInt(qNum);
+      const q = QUESTIONS[num];
+      // Q4 multi-option: "neither" = watch item
+      if (q.multiOption) return val === "neither";
       return q.reverseLogic ? val === true : val === false;
     })
     .map(([qNum]) => ({
@@ -1742,7 +2135,7 @@ Learn more at paunplugged.org`;
                     {hwHints[item.id] && <div className="hw-hint-body">{item.hint}</div>}
                     {hwStatus[item.id] === "not_found" && (
                       <div className="hw-status-note">
-                        No worries — this is common. You can still move forward.
+                        {item.notFound}
                       </div>
                     )}
                   </div>
@@ -1839,16 +2232,41 @@ Learn more at paunplugged.org`;
           {openSections.questions && (
             <div className="accordion-body">
               <p style={{ fontSize: 14, color: "var(--forest-mid)", marginBottom: 18, lineHeight: 1.5 }}>
-                Answer each question about your school. "Yes" answers generate action items for you to advocate on.
+                Answer each question about your school. Your answers will generate personalized action items.
               </p>
 
-              {[1, 2, 3, 4, 5, 6, 7].map(qNum => {
+              {[1, 2, 3, 5, 4, 6, 7].map(qNum => {
                 const q = QUESTIONS[qNum];
                 const answered = answers[qNum];
+                const getBadgeClass = () => {
+                  if (q.multiOption) {
+                    if (answered === "idk") return "idk";
+                    if (answered === "neither") return "no";
+                    if (answered) return "yes";
+                    return "";
+                  }
+                  return answered === true ? "yes" : answered === false ? "no" : answered === "idk" ? "idk" : "";
+                };
+                const getBadgeText = () => {
+                  if (q.multiOption) {
+                    const opt = q.options.find(o => o.value === answered);
+                    return opt ? opt.label : "";
+                  }
+                  return answered === true ? "Yes" : answered === false ? "No" : "Not sure";
+                };
+                const getRowClass = () => {
+                  if (q.multiOption) {
+                    if (answered === "idk") return "answered-idk";
+                    if (answered === "neither") return "answered-no";
+                    if (answered) return "answered-yes";
+                    return "";
+                  }
+                  return answered === true ? "answered-yes" : answered === false ? "answered-no" : answered === "idk" ? "answered-idk" : "";
+                };
                 return (
                   <div
                     key={qNum}
-                    className={`question-row ${answered === true ? "answered-yes" : ""} ${answered === false ? "answered-no" : ""}`}
+                    className={`question-row ${getRowClass()}`}
                   >
                     <div className="question-row-header">
                       <div className="question-num">{qNum}</div>
@@ -1857,23 +2275,63 @@ Learn more at paunplugged.org`;
                         {q.sub && <div style={{ fontSize: 12, color: "var(--forest-mid)", marginTop: 4, fontWeight: 400 }}>{q.sub}</div>}
                       </div>
                       {answered !== undefined && (
-                        <span className={`question-answer-badge ${answered ? "yes" : "no"}`}>
-                          {answered ? "Yes" : "No"}
+                        <span className={`question-answer-badge ${getBadgeClass()}`}>
+                          {getBadgeText()}
                         </span>
                       )}
                     </div>
 
-                    {answered === undefined && (
+                    {/* Standard yes/no/idk buttons */}
+                    {answered === undefined && !q.multiOption && (
                       <div className="yn-row" style={{ marginTop: 12, marginLeft: 36 }}>
                         <button className="yn-btn" onClick={() => answerQuestion(qNum, true)}>Yes</button>
                         <button className="yn-btn" onClick={() => answerQuestion(qNum, false)}>No</button>
+                        {qNum !== 1 && <button className="yn-btn" onClick={() => answerQuestion(qNum, "idk")}>I don't know</button>}
                       </div>
                     )}
 
-                    {answered === true && !q.reverseLogic && (
+                    {/* Multi-option buttons (Q4) */}
+                    {answered === undefined && q.multiOption && (
+                      <div className="yn-row" style={{ marginTop: 12, marginLeft: 36, flexWrap: "wrap" }}>
+                        {q.options.map(opt => (
+                          <button key={opt.value} className="yn-btn" onClick={() => answerQuestion(qNum, opt.value)}>
+                            {opt.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* IDK action */}
+                    {answered === "idk" && (
+                      <div className="question-details">
+                        <div className="idk-action-block">
+                          <div className="action-block-header"><span className="idk-tag">Find out</span></div>
+                          <p><strong>{IDK_ACTION_MAP[qNum].detail}</strong></p>
+                          <p style={{ marginTop: 10 }}><strong>Then:</strong> {IDK_ACTION_MAP[qNum].nextStep}</p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Multi-option action (Q4: both/youtube/ai) */}
+                    {q.multiOption && answered && answered !== "idk" && answered !== "neither" && q.actions[answered] && (
+                      <div className="question-details">{q.actions[answered]}</div>
+                    )}
+
+                    {/* Multi-option watch (Q4: neither) */}
+                    {q.multiOption && answered === "neither" && (
+                      <div className="question-details">
+                        <div className="watch-block" style={{ marginTop: 0 }}>
+                          <div className="watch-block-header"><span className="watch-tag">Keep watching</span></div>
+                          <p>{q.watchFor}</p>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Standard action (yes + normal logic) */}
+                    {!q.multiOption && answered === true && !q.reverseLogic && (
                       <div className="question-details">{q.action}</div>
                     )}
-                    {answered === true && q.reverseLogic && (
+                    {!q.multiOption && answered === true && q.reverseLogic && (
                       <div className="question-details">
                         <div className="watch-block" style={{ marginTop: 0 }}>
                           <div className="watch-block-header"><span className="watch-tag">Keep watching</span></div>
@@ -1881,7 +2339,7 @@ Learn more at paunplugged.org`;
                         </div>
                       </div>
                     )}
-                    {answered === false && !q.reverseLogic && (
+                    {!q.multiOption && answered === false && !q.reverseLogic && (
                       <div className="question-details">
                         <div className="watch-block" style={{ marginTop: 0 }}>
                           <div className="watch-block-header"><span className="watch-tag">Keep watching</span></div>
@@ -1889,7 +2347,7 @@ Learn more at paunplugged.org`;
                         </div>
                       </div>
                     )}
-                    {answered === false && q.reverseLogic && (
+                    {!q.multiOption && answered === false && q.reverseLogic && (
                       <div className="question-details">{q.action}</div>
                     )}
 
@@ -1935,8 +2393,8 @@ Learn more at paunplugged.org`;
                 <div className="summary-label">Your action items</div>
                 <div className="summary-list">
                   {collectedActions.map(a => (
-                    <div key={a.id} className="summary-item">
-                      <span className="arrow">→</span>
+                    <div key={a.id} className="summary-item" style={a.id.includes('-idk') ? { borderLeftColor: '#e0a840', background: '#fef9ec' } : {}}>
+                      <span className="arrow" style={a.id.includes('-idk') ? { color: '#e0a840' } : {}}>→</span>
                       <span><strong>{a.title}:</strong> {a.detail}</span>
                     </div>
                   ))}
@@ -1988,6 +2446,139 @@ Learn more at paunplugged.org`;
                 </div>
               </div>
             </div>
+
+            {/* ─── DRAFT YOUR EMAIL ─── */}
+            {collectedActions.length > 0 && (
+              <div className="email-draft-section">
+                <h3>Draft Your Email</h3>
+                <p>
+                  You've got your action items — now let's turn them into a conversation.
+                  Enter your info below to unlock the email drafting tool.
+                </p>
+
+                {!(hasSubmittedEmail() || emailSubmitted) ? (
+                  <div className="email-draft-card" style={{ maxWidth: 440 }}>
+                    <form className="modal-form" onSubmit={handleEmailSubmit}>
+                      <div className="form-row">
+                        <div className="form-group">
+                          <label htmlFor="draftFirstName">First Name</label>
+                          <input
+                            type="text"
+                            id="draftFirstName"
+                            placeholder="First name"
+                            value={emailFormData.firstName}
+                            onChange={(e) => setEmailFormData(prev => ({ ...prev, firstName: e.target.value }))}
+                            required
+                          />
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="draftLastName">Last Name</label>
+                          <input
+                            type="text"
+                            id="draftLastName"
+                            placeholder="Last name"
+                            value={emailFormData.lastName}
+                            onChange={(e) => setEmailFormData(prev => ({ ...prev, lastName: e.target.value }))}
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="draftEmail">Email</label>
+                        <input
+                          type="email"
+                          id="draftEmail"
+                          placeholder="you@example.com"
+                          value={emailFormData.email}
+                          onChange={(e) => setEmailFormData(prev => ({ ...prev, email: e.target.value }))}
+                          required
+                        />
+                      </div>
+                      <button type="submit" className="modal-submit" disabled={emailSubmitting}>
+                        {emailSubmitting ? 'Submitting...' : 'Unlock Email Tool'}
+                      </button>
+                    </form>
+                  </div>
+                ) : (
+                  <>
+                    <div className="email-step-label">Who do you want to message?</div>
+                    <div className="email-option-row">
+                      {[
+                        { key: 'teacher', label: "Your child's teacher" },
+                        { key: 'principal', label: 'The principal' },
+                        { key: 'board', label: 'School board' },
+                        { key: 'parents', label: 'Other parents' },
+                      ].map(opt => (
+                        <button
+                          key={opt.key}
+                          className={`email-option-btn ${emailRecipient === opt.key ? 'selected' : ''}`}
+                          onClick={() => { setEmailRecipient(opt.key); setEmailCopied(false); }}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    {emailRecipient && (() => {
+                      const isParents = emailRecipient === 'parents';
+                      const { subject, body } = isParents
+                        ? generateParentRallyMessage(collectedActions)
+                        : generateEmail({ recipient: emailRecipient, actionItems: collectedActions });
+                      const mailtoBody = encodeURIComponent(body);
+                      const mailtoSubject = encodeURIComponent(subject);
+
+                      return (
+                        <div className="email-draft-card">
+                          {isParents && (
+                            <div style={{ marginBottom: 14, fontSize: 13.5, color: 'var(--forest-mid)', lineHeight: 1.5 }}>
+                              Share this message with other parents to rally support. Send it via text, email, or your school's parent group.
+                            </div>
+                          )}
+                          <div className="email-draft-subject">
+                            <strong>Subject:</strong>
+                            <span>{subject}</span>
+                          </div>
+                          <div className="email-draft-body">{body}</div>
+                          <div className="email-draft-actions">
+                            <button
+                              className="btn btn-leaf"
+                              onClick={() => {
+                                navigator.clipboard.writeText(`Subject: ${subject}\n\n${body}`).then(() => {
+                                  setEmailCopied(true);
+                                  setTimeout(() => setEmailCopied(false), 2000);
+                                });
+                              }}
+                            >
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                              </svg>
+                              {emailCopied ? 'Copied!' : 'Copy message'}
+                            </button>
+                            <a
+                              className="btn btn-secondary"
+                              href={`mailto:?subject=${mailtoSubject}&body=${mailtoBody}`}
+                            >
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                              </svg>
+                              Open in email app
+                            </a>
+                            <button
+                              className="btn btn-ghost"
+                              onClick={() => { setEmailRecipient(null); setEmailCopied(false); }}
+                            >
+                              Try a different version
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </>
+                )}
+              </div>
+            )}
 
             <div style={{ marginTop: 28, textAlign: "left" }}>
               <div className="summary-label">Resources</div>
@@ -2084,6 +2675,21 @@ Learn more at paunplugged.org`;
         )}
 
         {/* Resources */}
+        {/* Email Draft (if generated) */}
+        {emailRecipient && (() => {
+          const isParents = emailRecipient === 'parents';
+          const { subject, body } = isParents
+            ? generateParentRallyMessage(collectedActions)
+            : generateEmail({ recipient: emailRecipient, actionItems: collectedActions });
+          return (
+            <div className="print-section print-email-section" style={{ display: 'block' }}>
+              <div className="print-section-title">{isParents ? 'Your Message to Other Parents' : 'Your Draft Email'}</div>
+              <div className="print-email-subject">Subject: {subject}</div>
+              <div className="print-email-body">{body}</div>
+            </div>
+          );
+        })()}
+
         <div className="print-section print-resources">
           <div className="print-section-title">Key Resources</div>
           <div className="print-resource-grid">
