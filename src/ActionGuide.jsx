@@ -987,10 +987,11 @@ const GlobalStyles = () => (
       bottom: 0;
       background: rgba(0,0,0,0.5);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       z-index: 1000;
-      padding: 20px;
+      padding: 60px 20px 20px;
+      overflow-y: auto;
       animation: fadeIn 0.2s ease;
     }
     .modal {
@@ -1496,6 +1497,20 @@ const HW_ITEMS = [
 /* ─── RESOURCES ─── */
 const RESOURCES = [
   {
+    id: "digital-delusion",
+    icon: "📖",
+    title: "The Digital Delusion — Dr. Jared Cooney Horvath",
+    desc: "Must read. The most important book for understanding why ed tech isn't working the way we've been told.",
+    link: "https://www.jaredcooney.com/the-digital-delusion",
+    body: (
+      <>
+        <p>Neuroscientist Dr. Jared Cooney Horvath dismantles the myths driving ed tech adoption — from "digital natives" to "personalized learning" — using peer-reviewed research and clear, accessible language.</p>
+        <p style={{ marginTop: 8 }}>This is the single best resource for any parent or educator who wants to understand <strong>why</strong> so much classroom technology fails to improve learning, and what the science actually says about how kids learn best.</p>
+        <p style={{ marginTop: 8 }}><em>If you read one thing, make it this.</em></p>
+      </>
+    ),
+  },
+  {
     id: "edtech-triangle",
     icon: "🔺",
     title: "The EdTech Triangle",
@@ -1782,11 +1797,9 @@ export default function ActionGuide() {
   const [openResource, setOpenResource] = useState(null);
   const [showSaveToast, setShowSaveToast] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
-  const [showEmailModal, setShowEmailModal] = useState(false);
   const [emailFormData, setEmailFormData] = useState({ firstName: '', lastName: '', email: '' });
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [emailSubmitting, setEmailSubmitting] = useState(false);
-  const [pendingAction, setPendingAction] = useState(null); // 'print' or 'copy'
   const [emailRecipient, setEmailRecipient] = useState(null); // 'teacher' | 'principal' | 'board' | 'parents'
   const [emailCopied, setEmailCopied] = useState(false);
   const printRef = useRef(null);
@@ -1859,29 +1872,19 @@ export default function ActionGuide() {
     }
   };
 
-  // Export to PDF via print (gated)
+  // Export to PDF via print
   const handlePrint = () => {
-    if (hasSubmittedEmail() || emailSubmitted) {
-      window.print();
-    } else {
-      setPendingAction('print');
-      setShowEmailModal(true);
-    }
+    window.print();
   };
 
-  // Copy action items to clipboard (gated)
+  // Copy action items to clipboard
   const handleCopyActions = () => {
-    if (hasSubmittedEmail() || emailSubmitted) {
-      performCopy();
-    } else {
-      setPendingAction('copy');
-      setShowEmailModal(true);
-    }
+    performCopy();
   };
 
   // Actual copy function
   const performCopy = () => {
-    const actionText = collectedActions.map((a, i) => `${i + 1}. ${a.title}\n   ${a.detail}`).join('\n\n');
+    const actionText = collectedActions.map((a, i) => `${i + 1}. ${a.title}\n   ${a.detail}${a.nextStep ? `\n   Then: ${a.nextStep}` : ''}`).join('\n\n');
     const watchText = Object.entries(answers)
       .filter(([qNum, val]) => {
         if (val === "idk") return false;
@@ -1932,44 +1935,19 @@ Learn more at paunplugged.org`;
       // Mark as submitted (even with no-cors we assume success)
       localStorage.setItem('pa-unplugged-email-submitted', 'true');
       setEmailSubmitted(true);
-
-      // After brief delay, perform the pending action and close modal
-      setTimeout(() => {
-        setShowEmailModal(false);
-        if (pendingAction === 'print') {
-          window.print();
-        } else if (pendingAction === 'copy') {
-          performCopy();
-        }
-        setPendingAction(null);
-        setEmailFormData({ firstName: '', lastName: '', email: '' });
-      }, 1500);
+      setEmailFormData({ firstName: '', lastName: '', email: '' });
 
     } catch (error) {
       console.error('Error submitting form:', error);
       // Even on error, proceed (the submission likely worked with no-cors)
       localStorage.setItem('pa-unplugged-email-submitted', 'true');
       setEmailSubmitted(true);
-      setTimeout(() => {
-        setShowEmailModal(false);
-        if (pendingAction === 'print') {
-          window.print();
-        } else if (pendingAction === 'copy') {
-          performCopy();
-        }
-        setPendingAction(null);
-      }, 1500);
     } finally {
       setEmailSubmitting(false);
     }
   };
 
-  // Close modal
-  const closeEmailModal = () => {
-    setShowEmailModal(false);
-    setPendingAction(null);
-    setEmailFormData({ firstName: '', lastName: '', email: '' });
-  };
+
 
   // Computed values
   const allHwAnswered = Object.values(hwStatus).every(v => v !== null);
@@ -2384,235 +2362,241 @@ Learn more at paunplugged.org`;
               fontFamily: "'Barlow Condensed', sans-serif", fontSize: 32, fontWeight: 700,
               textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8, color: "var(--forest)"
             }}>You're all set</h2>
-            <p style={{ fontSize: 14, color: "var(--forest-mid)", marginBottom: 24, lineHeight: 1.5 }}>
-              You've worked through every question. Here's a summary of your action items.
-            </p>
-
-            {collectedActions.length > 0 && (
-              <div className="summary-section">
-                <div className="summary-label">Your action items</div>
-                <div className="summary-list">
-                  {collectedActions.map(a => (
-                    <div key={a.id} className="summary-item" style={a.id.includes('-idk') ? { borderLeftColor: '#e0a840', background: '#fef9ec' } : {}}>
-                      <span className="arrow" style={a.id.includes('-idk') ? { color: '#e0a840' } : {}}>→</span>
-                      <span><strong>{a.title}:</strong> {a.detail}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {collectedActions.length === 0 && (
-              <div className="info-block" style={{ textAlign: "left" }}>
-                <p><strong>Nice work.</strong> It looks like your school is already in pretty good shape on the basics. Keep an eye on things, and use the resources below if anything changes.</p>
-              </div>
-            )}
-
-            {watchItems.length > 0 && (
-              <div className="summary-section">
-                <div className="summary-label">Things to keep watching</div>
-                <div className="summary-list">
-                  {watchItems.map(item => (
-                    <div key={item.qNum} className="summary-item" style={{ borderLeftColor: "var(--sage)", background: "var(--forest-pale)" }}>
-                      <span className="arrow" style={{ color: "var(--sage)" }}>•</span>
-                      <span><strong>{item.text}</strong> — {item.watchFor}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* ─── EXPORT SECTION ─── */}
-            <div className="export-section">
-              <div className="export-card">
-                <h3>Download Your Action Guide</h3>
-                <p>Save a copy of your personalized action plan to reference later, share with other parents, or bring to school board meetings.</p>
-                <div className="export-btn-row">
-                  <button className="export-btn" onClick={handlePrint}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                      <polyline points="7,10 12,15 17,10"/>
-                      <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    Save as PDF
-                  </button>
-                  <button className="export-btn export-btn-secondary" onClick={handleCopyActions}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                    </svg>
-                    Copy to clipboard
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* ─── DRAFT YOUR EMAIL ─── */}
-            {collectedActions.length > 0 && (
-              <div className="email-draft-section">
-                <h3>Draft Your Email</h3>
-                <p>
-                  You've got your action items — now let's turn them into a conversation.
-                  Enter your info below to unlock the email drafting tool.
+            {(hasSubmittedEmail() || emailSubmitted) ? (
+              <>
+                <p style={{ fontSize: 14, color: "var(--forest-mid)", marginBottom: 24, lineHeight: 1.5 }}>
+                  You've worked through every question. Here's a summary of your action items.
                 </p>
 
-                {!(hasSubmittedEmail() || emailSubmitted) ? (
-                  <div className="email-draft-card" style={{ maxWidth: 440 }}>
-                    <form className="modal-form" onSubmit={handleEmailSubmit}>
-                      <div className="form-row">
-                        <div className="form-group">
-                          <label htmlFor="draftFirstName">First Name</label>
-                          <input
-                            type="text"
-                            id="draftFirstName"
-                            placeholder="First name"
-                            value={emailFormData.firstName}
-                            onChange={(e) => setEmailFormData(prev => ({ ...prev, firstName: e.target.value }))}
-                            required
-                          />
+                {collectedActions.length > 0 && (
+                  <div className="summary-section">
+                    <div className="summary-label">Your action items</div>
+                    <div className="summary-list">
+                      {collectedActions.map(a => (
+                        <div key={a.id} className="summary-item" style={a.id.includes('-idk') ? { borderLeftColor: '#e0a840', background: '#fef9ec' } : {}}>
+                          <span className="arrow" style={a.id.includes('-idk') ? { color: '#e0a840' } : {}}>→</span>
+                          <span><strong>{a.title}:</strong> {a.detail}{a.nextStep && <><br/><strong>Then:</strong> {a.nextStep}</>}</span>
                         </div>
-                        <div className="form-group">
-                          <label htmlFor="draftLastName">Last Name</label>
-                          <input
-                            type="text"
-                            id="draftLastName"
-                            placeholder="Last name"
-                            value={emailFormData.lastName}
-                            onChange={(e) => setEmailFormData(prev => ({ ...prev, lastName: e.target.value }))}
-                            required
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label htmlFor="draftEmail">Email</label>
-                        <input
-                          type="email"
-                          id="draftEmail"
-                          placeholder="you@example.com"
-                          value={emailFormData.email}
-                          onChange={(e) => setEmailFormData(prev => ({ ...prev, email: e.target.value }))}
-                          required
-                        />
-                      </div>
-                      <button type="submit" className="modal-submit" disabled={emailSubmitting}>
-                        {emailSubmitting ? 'Submitting...' : 'Unlock Email Tool'}
-                      </button>
-                    </form>
-                  </div>
-                ) : (
-                  <>
-                    <div className="email-step-label">Who do you want to message?</div>
-                    <div className="email-option-row">
-                      {[
-                        { key: 'teacher', label: "Your child's teacher" },
-                        { key: 'principal', label: 'The principal' },
-                        { key: 'board', label: 'School board' },
-                        { key: 'parents', label: 'Other parents' },
-                      ].map(opt => (
-                        <button
-                          key={opt.key}
-                          className={`email-option-btn ${emailRecipient === opt.key ? 'selected' : ''}`}
-                          onClick={() => { setEmailRecipient(opt.key); setEmailCopied(false); }}
-                        >
-                          {opt.label}
-                        </button>
                       ))}
                     </div>
-
-                    {emailRecipient && (() => {
-                      const isParents = emailRecipient === 'parents';
-                      const { subject, body } = isParents
-                        ? generateParentRallyMessage(collectedActions)
-                        : generateEmail({ recipient: emailRecipient, actionItems: collectedActions });
-                      const mailtoBody = encodeURIComponent(body);
-                      const mailtoSubject = encodeURIComponent(subject);
-
-                      return (
-                        <div className="email-draft-card">
-                          {isParents && (
-                            <div style={{ marginBottom: 14, fontSize: 13.5, color: 'var(--forest-mid)', lineHeight: 1.5 }}>
-                              Share this message with other parents to rally support. Send it via text, email, or your school's parent group.
-                            </div>
-                          )}
-                          <div className="email-draft-subject">
-                            <strong>Subject:</strong>
-                            <span>{subject}</span>
-                          </div>
-                          <div className="email-draft-body">{body}</div>
-                          <div className="email-draft-actions">
-                            <button
-                              className="btn btn-leaf"
-                              onClick={() => {
-                                navigator.clipboard.writeText(`Subject: ${subject}\n\n${body}`).then(() => {
-                                  setEmailCopied(true);
-                                  setTimeout(() => setEmailCopied(false), 2000);
-                                });
-                              }}
-                            >
-                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                              </svg>
-                              {emailCopied ? 'Copied!' : 'Copy message'}
-                            </button>
-                            <a
-                              className="btn btn-secondary"
-                              href={`mailto:?subject=${mailtoSubject}&body=${mailtoBody}`}
-                            >
-                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                <polyline points="22,6 12,13 2,6"/>
-                              </svg>
-                              Open in email app
-                            </a>
-                            <button
-                              className="btn btn-ghost"
-                              onClick={() => { setEmailRecipient(null); setEmailCopied(false); }}
-                            >
-                              Try a different version
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    })()}
-                  </>
+                  </div>
                 )}
-              </div>
-            )}
 
-            <div style={{ marginTop: 28, textAlign: "left" }}>
-              <div className="summary-label">Resources</div>
-              <div className="resource-grid">
-                {RESOURCES.map(r => (
-                  <div
-                    key={r.id}
-                    className={`resource-card ${openResource === r.id ? "open" : ""}`}
-                    onClick={() => setOpenResource(openResource === r.id ? null : r.id)}
-                  >
-                    <div className="resource-card-top">
-                      <div className="resource-icon">{r.icon}</div>
-                      <div>
-                        <h4>{r.title}</h4>
-                        <p>{r.desc}</p>
-                      </div>
-                      <svg className="resource-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                {collectedActions.length === 0 && (
+                  <div className="info-block" style={{ textAlign: "left" }}>
+                    <p><strong>Nice work.</strong> It looks like your school is already in pretty good shape on the basics. Keep an eye on things, and use the resources below if anything changes.</p>
+                  </div>
+                )}
+
+                {watchItems.length > 0 && (
+                  <div className="summary-section">
+                    <div className="summary-label">Things to keep watching</div>
+                    <div className="summary-list">
+                      {watchItems.map(item => (
+                        <div key={item.qNum} className="summary-item" style={{ borderLeftColor: "var(--sage)", background: "var(--forest-pale)" }}>
+                          <span className="arrow" style={{ color: "var(--sage)" }}>•</span>
+                          <span><strong>{item.text}</strong> — {item.watchFor}</span>
+                        </div>
+                      ))}
                     </div>
-                    {openResource === r.id && (
-                      <div className="resource-card-body">
-                        {r.body}
-                        {r.link && (
-                          <a href={r.link} target="_blank" rel="noopener noreferrer" className="resource-link" onClick={(e) => e.stopPropagation()}>
-                            View Resource →
-                          </a>
+                  </div>
+                )}
+
+                {/* ─── EXPORT SECTION ─── */}
+                <div className="export-section">
+                  <div className="export-card">
+                    <h3>Download Your Action Guide</h3>
+                    <p>Save a copy of your personalized action plan to reference later, share with other parents, or bring to school board meetings.</p>
+                    <div className="export-btn-row">
+                      <button className="export-btn" onClick={handlePrint}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                          <polyline points="7,10 12,15 17,10"/>
+                          <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Save as PDF
+                      </button>
+                      <button className="export-btn export-btn-secondary" onClick={handleCopyActions}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        Copy to clipboard
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* ─── DRAFT YOUR EMAIL ─── */}
+                {collectedActions.length > 0 && (
+                  <div className="email-draft-section">
+                    <h3>Draft Your Email</h3>
+                    <p>
+                      You've got your action items — now let's turn them into a conversation.
+                      Pick who you want to reach out to and we'll draft a message for you.
+                    </p>
+
+                    <div className="email-step-label">Who do you want to message?</div>
+                        <div className="email-option-row">
+                          {[
+                            { key: 'teacher', label: "Your child's teacher" },
+                            { key: 'principal', label: 'The principal' },
+                            { key: 'board', label: 'School board' },
+                            { key: 'parents', label: 'Other parents' },
+                          ].map(opt => (
+                            <button
+                              key={opt.key}
+                              className={`email-option-btn ${emailRecipient === opt.key ? 'selected' : ''}`}
+                              onClick={() => { setEmailRecipient(opt.key); setEmailCopied(false); }}
+                            >
+                              {opt.label}
+                            </button>
+                          ))}
+                        </div>
+
+                        {emailRecipient && (() => {
+                          const isParents = emailRecipient === 'parents';
+                          const { subject, body } = isParents
+                            ? generateParentRallyMessage(collectedActions)
+                            : generateEmail({ recipient: emailRecipient, actionItems: collectedActions });
+                          const mailtoBody = encodeURIComponent(body);
+                          const mailtoSubject = encodeURIComponent(subject);
+
+                          return (
+                            <div className="email-draft-card">
+                              {isParents && (
+                                <div style={{ marginBottom: 14, fontSize: 13.5, color: 'var(--forest-mid)', lineHeight: 1.5 }}>
+                                  Share this message with other parents to rally support. Send it via text, email, or your school's parent group.
+                                </div>
+                              )}
+                              <div className="email-draft-subject">
+                                <strong>Subject:</strong>
+                                <span>{subject}</span>
+                              </div>
+                              <div className="email-draft-body">{body}</div>
+                              <div className="email-draft-actions">
+                                <button
+                                  className="btn btn-leaf"
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(`Subject: ${subject}\n\n${body}`).then(() => {
+                                      setEmailCopied(true);
+                                      setTimeout(() => setEmailCopied(false), 2000);
+                                    });
+                                  }}
+                                >
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                                  </svg>
+                                  {emailCopied ? 'Copied!' : 'Copy message'}
+                                </button>
+                                <a
+                                  className="btn btn-secondary"
+                                  href={`mailto:?subject=${mailtoSubject}&body=${mailtoBody}`}
+                                >
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                  </svg>
+                                  Open in email app
+                                </a>
+                                <button
+                                  className="btn btn-ghost"
+                                  onClick={() => { setEmailRecipient(null); setEmailCopied(false); }}
+                                >
+                                  Try a different version
+                                </button>
+                              </div>
+                            </div>
+                          );
+                        })()}
+                  </div>
+                )}
+
+                <div style={{ marginTop: 28, textAlign: "left" }}>
+                  <div className="summary-label">Resources</div>
+                  <div className="resource-grid">
+                    {RESOURCES.map(r => (
+                      <div
+                        key={r.id}
+                        className={`resource-card ${openResource === r.id ? "open" : ""}`}
+                        onClick={() => setOpenResource(openResource === r.id ? null : r.id)}
+                      >
+                        <div className="resource-card-top">
+                          <div className="resource-icon">{r.icon}</div>
+                          <div>
+                            <h4>{r.title}</h4>
+                            <p>{r.desc}</p>
+                          </div>
+                          <svg className="resource-card-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        {openResource === r.id && (
+                          <div className="resource-card-body">
+                            {r.body}
+                            {r.link && (
+                              <a href={r.link} target="_blank" rel="noopener noreferrer" className="resource-link" onClick={(e) => e.stopPropagation()}>
+                                View Resource →
+                              </a>
+                            )}
+                          </div>
                         )}
                       </div>
-                    )}
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <p style={{ fontSize: 14, color: "var(--forest-mid)", marginBottom: 8, lineHeight: 1.5 }}>
+                  You've worked through every question — nice work. Enter your info below to see your personalized action items, draft emails, and downloadable guide.
+                </p>
+                <form className="modal-form" onSubmit={handleEmailSubmit} style={{ textAlign: "left", marginTop: 16 }}>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="gate-firstName">First Name</label>
+                      <input
+                        type="text"
+                        id="gate-firstName"
+                        placeholder="First name"
+                        value={emailFormData.firstName}
+                        onChange={(e) => setEmailFormData(prev => ({ ...prev, firstName: e.target.value }))}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="gate-lastName">Last Name</label>
+                      <input
+                        type="text"
+                        id="gate-lastName"
+                        placeholder="Last name"
+                        value={emailFormData.lastName}
+                        onChange={(e) => setEmailFormData(prev => ({ ...prev, lastName: e.target.value }))}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="gate-email">Email</label>
+                    <input
+                      type="email"
+                      id="gate-email"
+                      placeholder="you@example.com"
+                      value={emailFormData.email}
+                      onChange={(e) => setEmailFormData(prev => ({ ...prev, email: e.target.value }))}
+                      required
+                    />
+                  </div>
+                  <button type="submit" className="modal-submit" disabled={emailSubmitting} style={{ width: "100%" }}>
+                    {emailSubmitting ? 'Submitting...' : 'See My Results'}
+                  </button>
+                  <p style={{ fontSize: 12, color: "var(--forest-mid)", marginTop: 10, textAlign: "center", lineHeight: 1.4 }}>
+                    You'll also receive occasional updates from PA Unplugged. We respect your privacy.
+                  </p>
+                </form>
+              </>
+            )}
           </div>
         )}
 
@@ -2650,7 +2634,7 @@ Learn more at paunplugged.org`;
                 <span className="print-action-num">{i + 1}.</span>
                 <div className="print-action-content">
                   <strong>{action.title}</strong>
-                  <span>{action.detail}</span>
+                  <span>{action.detail}{action.nextStep && <><br/><strong>Then:</strong> {action.nextStep}</>}</span>
                 </div>
               </div>
             ))
@@ -2711,73 +2695,6 @@ Learn more at paunplugged.org`;
           <p>paunplugged.org • Take our Ed Tech Survey: paunplugged.org/ed-tech-survey</p>
         </div>
       </div>
-
-      {/* ─── EMAIL GATE MODAL ─── */}
-      {showEmailModal && (
-        <div className="modal-overlay">
-          <div className="modal" style={{ maxWidth: 440 }}>
-            <button className="modal-close-btn" onClick={closeEmailModal} aria-label="Close">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </button>
-            {!emailSubmitted ? (
-              <>
-                <div className="modal-header">
-                  <h3>Get Your Action Guide</h3>
-                  <p>Enter your info below to download your personalized action guide and receive updates from PA Unplugged.</p>
-                </div>
-                <form className="modal-form" onSubmit={handleEmailSubmit}>
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label htmlFor="firstName">First Name</label>
-                      <input
-                        type="text"
-                        id="firstName"
-                        placeholder="First name"
-                        value={emailFormData.firstName}
-                        onChange={(e) => setEmailFormData(prev => ({ ...prev, firstName: e.target.value }))}
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="lastName">Last Name</label>
-                      <input
-                        type="text"
-                        id="lastName"
-                        placeholder="Last name"
-                        value={emailFormData.lastName}
-                        onChange={(e) => setEmailFormData(prev => ({ ...prev, lastName: e.target.value }))}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      placeholder="you@example.com"
-                      value={emailFormData.email}
-                      onChange={(e) => setEmailFormData(prev => ({ ...prev, email: e.target.value }))}
-                      required
-                    />
-                  </div>
-                  <button type="submit" className="modal-submit" disabled={emailSubmitting}>
-                    {emailSubmitting ? 'Submitting...' : 'Get My Action Guide'}
-                  </button>
-                </form>
-              </>
-            ) : (
-              <div className="form-success">
-                <div className="checkmark">✓</div>
-                <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 24, fontWeight: 700, color: 'var(--forest)', marginBottom: 8 }}>You're in!</h3>
-                <p>Your download will start automatically...</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* ─── SAVE TOAST ─── */}
       {showSaveToast && (
