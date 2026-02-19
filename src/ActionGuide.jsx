@@ -2481,13 +2481,17 @@ Learn more at paunplugged.org`;
                         const q = QUESTIONS[parseInt(qNum)];
                         return q.reverseLogic && val === false;
                       }).length;
-                      return (idkCount + reverseNoCount) >= 2 ? (
+                      return (idkCount + reverseNoCount) >= 3 ? (
                         <div className="info-block" style={{ textAlign: "left", marginBottom: 16, borderLeft: '4px solid #e0a840', background: '#fef9ec' }}>
                           <p style={{ marginBottom: 8 }}><strong>It sounds like you're still learning about how technology is used at your school — and that's completely okay.</strong></p>
                           <p style={{ marginBottom: 8 }}>Most parents don't know the details of how technology is used at their child's school. That's absolutely not a failure on your part. Schools rarely communicate these policies and practices clearly.</p>
                           <p style={{ marginBottom: 0 }}>You don't need to tackle everything at once. <strong>Start with one conversation</strong> — a friendly chat with your child's teacher is a great first step. Approach it as a partner, not a critic. This is a process, and every small step matters.</p>
                         </div>
-                      ) : null;
+                      ) : (
+                        <div className="info-block" style={{ textAlign: "left", marginBottom: 16 }}>
+                          <p style={{ marginBottom: 0 }}>It looks like you already have a pretty good handle on the technology landscape at your school. Hopefully these action items give you a clear sense of where to focus. Our recommendation is to start with a conversation. A collaborative chat with your child's teacher or principal goes a long way, and approaching it as a partner makes all the difference.</p>
+                        </div>
+                      );
                     })()}
                     <div className="summary-label">Your action items</div>
                     <div className="summary-list">
@@ -2503,7 +2507,9 @@ Learn more at paunplugged.org`;
 
                 {collectedActions.length === 0 && (
                   <div className="info-block" style={{ textAlign: "left" }}>
-                    <p><strong>Nice work.</strong> It looks like your school is already in pretty good shape on the basics. Keep an eye on things, and use the resources below if anything changes.</p>
+                    <p style={{ marginBottom: 8 }}><strong>Nice work.</strong> It looks like your school is already in pretty good shape on the basics.</p>
+                    <p style={{ marginBottom: 8 }}>Even so, the best thing you can do is start a conversation. Let your child's teacher or principal know that you're paying attention and that you appreciate what's working. Positive feedback matters, and it opens the door for future dialogue if things change.</p>
+                    <p style={{ marginBottom: 0 }}>Keep an eye on things, stay engaged, and use the resources below to stay informed.</p>
                   </div>
                 )}
 
