@@ -2629,6 +2629,19 @@ Learn more at paunplugged.org`;
                   </div>
                 )}
 
+                <div className="info-block" style={{ textAlign: "left", marginTop: 28, background: "var(--green-accent-bg)", borderLeft: "4px solid var(--green-accent)" }}>
+                  <p style={{ marginBottom: 8 }}><strong>You don't have to do this alone.</strong></p>
+                  <p style={{ marginBottom: 12 }}>Parents across Pennsylvania are having these same conversations. Connect with a local group near you for support, ideas, and solidarity.</p>
+                  <a
+                    href="https://www.paunplugged.org/find-a-local-group"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-leaf btn-sm"
+                  >
+                    Find a local group →
+                  </a>
+                </div>
+
                 <div style={{ marginTop: 28, textAlign: "left" }}>
                   <div className="summary-label">Resources</div>
                   <div className="resource-grid">
