@@ -1565,6 +1565,19 @@ const RESOURCES = [
     ),
   },
   {
+    id: "evergreen-questions",
+    icon: "❓",
+    title: "Evergreen EdTech Questions to Ask Your Child's School",
+    desc: "A ready-to-use list of questions every parent should be asking about technology in their child's school.",
+    link: "https://drive.google.com/file/d/1TdWW2D9cfmDmYocJ_MEYSQfdI5y9VlcL/view?usp=sharing",
+    body: (
+      <>
+        <p>A practical reference sheet of key questions to ask your child's school about their technology policies and practices — covering devices, data privacy, screen time, and more.</p>
+        <p style={{ marginTop: 8 }}>Keep this handy for back-to-school nights, parent-teacher conferences, or anytime you want to start a productive conversation about how tech is being used in the classroom.</p>
+      </>
+    ),
+  },
+  {
     id: "screenstrong-courses",
     icon: "🎓",
     title: "ScreenStrong Courses & Guides",
