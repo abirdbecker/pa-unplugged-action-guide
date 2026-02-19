@@ -2076,8 +2076,7 @@ Learn more at paunplugged.org`;
       <GlobalStyles />
       <div className="app-shell">
         <div className="header">
-          <div className="header-badge">PA Unplugged</div>
-          <h1>Ed Tech Advocacy</h1>
+          <h1>PA Unplugged Ed Tech Advocacy Guide</h1>
           <p>Chart your own path.</p>
         </div>
 
