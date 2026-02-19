@@ -796,8 +796,8 @@ const GlobalStyles = () => (
     .footer {
       text-align: center;
       padding: 40px 0 20px;
-      font-size: 0.8rem;
-      color: var(--sand);
+      font-size: 0.85rem;
+      color: var(--forest-mid);
       border-top: 1px solid var(--warm);
       margin-top: 40px;
     }
@@ -2655,10 +2655,11 @@ Learn more at paunplugged.org`;
 
         <footer className="footer">
           <p>
-            A project of{' '}
+            A{' '}
             <a href="https://paunplugged.org" target="_blank" rel="noopener noreferrer">
               PA Unplugged
             </a>
+            {' '}project
           </p>
         </footer>
       </div>
