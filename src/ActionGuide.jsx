@@ -2654,13 +2654,7 @@ Learn more at paunplugged.org`;
         </div>
 
         <footer className="footer">
-          <p>
-            A{' '}
-            <a href="https://paunplugged.org" target="_blank" rel="noopener noreferrer">
-              PA Unplugged
-            </a>
-            {' '}project
-          </p>
+          <p>A <a href="https://paunplugged.org" target="_blank" rel="noopener noreferrer">PA Unplugged</a> project</p>
         </footer>
       </div>
 
