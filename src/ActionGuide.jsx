@@ -2459,6 +2459,20 @@ Learn more at paunplugged.org`;
 
                 {collectedActions.length > 0 && (
                   <div className="summary-section">
+                    {(() => {
+                      const idkCount = collectedActions.filter(a => a.id.includes('-idk')).length;
+                      const reverseNoCount = Object.entries(answers).filter(([qNum, val]) => {
+                        const q = QUESTIONS[parseInt(qNum)];
+                        return q.reverseLogic && val === false;
+                      }).length;
+                      return (idkCount + reverseNoCount) >= 2 ? (
+                        <div className="info-block" style={{ textAlign: "left", marginBottom: 16, borderLeft: '4px solid #e0a840', background: '#fef9ec' }}>
+                          <p style={{ marginBottom: 8 }}><strong>It sounds like you're still learning about how technology is used at your school — and that's completely okay.</strong></p>
+                          <p style={{ marginBottom: 8 }}>Most parents don't know the details of how technology is used in their child's school. That's not a failure on your part — schools rarely communicate these policies clearly.</p>
+                          <p style={{ marginBottom: 0 }}>You don't need to tackle everything at once. <strong>Start with one conversation</strong> — a friendly chat with your child's teacher is a great first step. Approach it as a partner, not a critic. This is a process, and every small step matters.</p>
+                        </div>
+                      ) : null;
+                    })()}
                     <div className="summary-label">Your action items</div>
                     <div className="summary-list">
                       {collectedActions.map(a => (
