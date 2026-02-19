@@ -1803,7 +1803,7 @@ https://www.paunplugged.org/ed-tech-advocacy`,
 const STORAGE_KEY = "pa-unplugged-progress";
 
 /* ─── SURVEY URL ─── */
-const SURVEY_URL = "https://paunplugged.org/ed-tech-survey";
+const SURVEY_URL = "https://survey.paunplugged.org";
 
 /* ─── MAIN COMPONENT ────────────────────────────────────────────────────── */
 export default function ActionGuide() {
@@ -2742,7 +2742,7 @@ Learn more at paunplugged.org`;
         {/* Footer */}
         <div className="print-footer">
           <p><strong>PA Unplugged</strong> — Collective action starts here.</p>
-          <p>paunplugged.org • Take our Ed Tech Survey: paunplugged.org/ed-tech-survey</p>
+          <p>paunplugged.org • Take our Ed Tech Survey: survey.paunplugged.org</p>
         </div>
       </div>
 
