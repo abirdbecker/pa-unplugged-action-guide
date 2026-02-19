@@ -36,28 +36,15 @@ const GlobalStyles = () => (
     }
 
     .app-shell {
-      max-width: 720px;
+      max-width: 860px;
       margin: 0 auto;
-      padding: 0 20px 80px;
+      padding: 0 16px 80px;
     }
 
     /* ─── HEADER ─── */
     .header {
-      text-align: center;
-      padding: 48px 0 40px;
-      position: relative;
+      padding: 40px 0 32px;
     }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 105%; max-width: 760px;
-      height: 100%; border-radius: 0 0 28px 28px;
-      background: #b5bda8;
-      z-index: 0;
-    }
-    .header > * { position: relative; z-index: 1; }
     .header-badge {
       display: inline-block;
       background: var(--forest);
@@ -67,27 +54,25 @@ const GlobalStyles = () => (
       font-weight: 700;
       letter-spacing: 2.2px;
       text-transform: uppercase;
-      padding: 6px 18px;
+      padding: 4px 14px;
       border-radius: 20px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     .header h1 {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 52px;
+      font-size: 2rem;
       font-weight: 800;
       color: var(--forest);
       line-height: 1.05;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
     }
     .header p {
       font-family: 'Inter Tight', sans-serif;
       color: var(--forest-mid);
-      font-size: 15px;
+      font-size: 0.95rem;
       line-height: 1.55;
-      max-width: 520px;
-      margin: 0 auto;
     }
 
     /* ─── INTRO SECTION ─── */
@@ -1365,7 +1350,7 @@ const QUESTIONS = {
         <div className="action-block-header"><span className="action-tag">Action</span></div>
         <p><strong>Push for devices to stay at school through at least 5th grade — ideally through middle school.</strong></p>
         <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> When devices come home, they add unsupervised screen time, compete with family time and physical play, and put parents in the position of policing yet another screen. Homework in elementary school should be paper and pencil — there's no reason it needs to involve a screen. Keeping school devices at school creates a clearer boundary and one less thing to manage at home.</p>
-        <p style={{ marginTop: 10 }}>If your school already sends devices home, ask what the rationale is and whether there's flexibility to opt out or keep them at school.</p>
+        <p style={{ marginTop: 10 }}>If your school already sends devices home, ask what the rationale is and request that devices be kept at school through elementary school and only sent home on a limited, as-needed basis in middle school.</p>
       </div>
     ),
     watchFor: "Good — devices staying at school is a strong baseline. Find out when that changes — what grade do devices start going home? If it's middle school, consider pushing to delay it or limit the number of days per week they come home.",
@@ -1491,7 +1476,7 @@ const HW_ITEMS = [
   { id: "policy", label: "School board policy / handbook rules", desc: "The official rules governing how devices are used, stored, and managed at school.", hint: "Check the district website under Policies, School Board, or Board of Education.", notFound: "That's actually useful to know — it means there may not be a clear, accessible policy (which is worth raising)." },
   { id: "philosophy", label: "Technology philosophy or position statement", desc: "The district's stated beliefs about the role of technology in education.", hint: "Could be found on your district's website under Curriculum, Academics, or About. Try searching the site for \"screen time\" or \"technology vision\" or \"technology position statement.\" If nothing comes up, that itself is useful information.", notFound: "Most districts don't publish one. If they can't articulate their philosophy, that's a conversation worth starting." },
   { id: "curriculum", label: "Digital literacy curriculum", desc: "What students are taught about using technology responsibly and safely.", hint: "Look under Curriculum or Instruction on the district site. If you can't find it, try emailing the curriculum director — they'll know whether one exists or if it's something the district hasn't adopted yet.", notFound: "Not unusual — many districts haven't formalized this yet." },
-  { id: "ai", label: "AI guidelines & policy", desc: "Rules about whether and how AI tools like ChatGPT can be used by students.", hint: "This is newer territory for most districts. Many schools are still figuring this out, so you may hear \"we don't have one yet.\" Hopefully — they're working on one! More on that later.", notFound: "No surprise here — most districts are still figuring this out. But it's important they start." },
+  { id: "ai", label: "AI guidelines & policy", desc: "Rules about whether and how AI tools like ChatGPT can be used by students.", hint: "This is newer territory for most districts. Many schools are still figuring this out, so you may hear \"we don't have one yet.\" Hopefully — they're working on one! More on that later.", notFound: "No surprise here — most districts are still figuring this out. If they're not, they should be." },
 ];
 
 /* ─── RESOURCES ─── */
@@ -1760,23 +1745,40 @@ Parent at [Your School]`;
 // Generate the "rally other parents" message
 function generateParentRallyMessage(actionItems) {
   const topItems = actionItems.slice(0, 3);
-  const itemsList = topItems
-    .map((item) => `- ${item.title}: ${item.detail}`)
-    .join("\n");
+
+  const issueMap = {
+    q1: "devices are going home with kids in elementary school — adding unsupervised screen time and making parents the tech police",
+    q2: "kids are allowed to use devices during recess, lunch, and downtime — taking away the unstructured time they need for socializing and real breaks",
+    q3: "screen time is being used as a reward in the classroom — which teaches kids that devices are the ultimate prize and undermines healthy boundaries",
+    "q4-both": "students have access to YouTube and AI chatbots like ChatGPT on their school devices — with no meaningful restrictions",
+    "q4-youtube": "students can access YouTube on school devices — even 'educational' videos lead to autoplay rabbit holes",
+    "q4-ai": "students can access AI chatbots like ChatGPT on school devices — tools that can do their work for them",
+    "q4-idk": "it's unclear what students can actually access on their devices — and the school isn't being transparent about it",
+    q5: "there's no clear, public list of what apps and platforms are being used — or how they're evaluated before being put in front of our kids",
+    "q5-idk": "there's no clear, public list of what apps and platforms are being used — or how they're evaluated before being put in front of our kids",
+    q6: "nobody is tracking how much time kids actually spend on screens during the school day — and there are no limits in place",
+    "q6-idk": "nobody is tracking how much time kids actually spend on screens during the school day — and there are no limits in place",
+    q7: "screens are replacing hands-on learning — less handwriting, fewer physical books, less real research — and nobody's questioning whether that's actually better",
+    "q7-idk": "screens are replacing hands-on learning — less handwriting, fewer physical books, less real research — and nobody's questioning whether that's actually better",
+  };
+
+  const issues = topItems
+    .map((item) => issueMap[item.id] || item.detail.toLowerCase())
+    .filter(Boolean);
+
+  const issueText = issues.length === 1
+    ? `Here's what I found: ${issues[0]}.`
+    : `Here's what I found:\n\n${issues.map(i => `• ${i}`).join('\n')}`;
 
   return {
-    subject: "Let's talk about how tech is being used at our school",
-    body: `Hi! I've been looking into how technology is being used at [Your School], and I think it's worth having a conversation with the school about it.
+    subject: "Ed Tech / Screen Time at School",
+    body: `Hey — I've been looking into how the devices are being used at school and I have a few concerns. Wanted to share and see what you thought.
 
-Here are some of the key things I've found:
+${issueText}
 
-${itemsList}
+Do you have thoughts on this? If you want to take a look yourself, this guide walks you through it — takes about 10 minutes and gives you a personalized action plan:
 
-I'm not trying to be adversarial — just an informed parent who wants to make sure the tech our kids are using is actually helping them learn. The more parents who raise these questions, the more likely we are to see meaningful change.
-
-If you're interested, I'm planning to reach out to [the teacher / the principal / the school board] about this. Even if you just want to learn more, I'd love to chat. The more of us who are informed and asking questions, the better.
-
-Would you be interested in joining the conversation?`,
+https://www.paunplugged.org/ed-tech-advocacy`,
   };
 }
 
@@ -1797,9 +1799,7 @@ export default function ActionGuide() {
   const [openResource, setOpenResource] = useState(null);
   const [showSaveToast, setShowSaveToast] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
-  const [emailFormData, setEmailFormData] = useState({ firstName: '', lastName: '', email: '' });
   const [emailSubmitted, setEmailSubmitted] = useState(false);
-  const [emailSubmitting, setEmailSubmitting] = useState(false);
   const [emailRecipient, setEmailRecipient] = useState(null); // 'teacher' | 'principal' | 'board' | 'parents'
   const [emailCopied, setEmailCopied] = useState(false);
   const printRef = useRef(null);
@@ -1814,6 +1814,10 @@ export default function ActionGuide() {
         if (data.is11 !== undefined) setIs11(data.is11);
         if (data.answers) setAnswers(data.answers);
         if (data.openSections) setOpenSections(data.openSections);
+      }
+      // Restore email submitted state
+      if (localStorage.getItem('pa-unplugged-email-submitted') === 'true') {
+        setEmailSubmitted(true);
       }
     } catch (e) {
       console.log("Could not load saved progress");
@@ -1861,6 +1865,8 @@ export default function ActionGuide() {
     setAnswers({});
     setOpenSections({ prep: true, school: false, questions: false });
     localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem('pa-unplugged-email-submitted');
+    setEmailSubmitted(false);
   };
 
   // Check if user has already submitted email (stored in localStorage)
@@ -1912,39 +1918,79 @@ Learn more at paunplugged.org`;
     });
   };
 
-  // Handle email form submission to Tally
-  const handleEmailSubmit = async (e) => {
-    e.preventDefault();
-    setEmailSubmitting(true);
-
+  // Send personalized guide email via API
+  const sendGuideEmail = async (email, firstName) => {
     try {
-      // Submit to Tally form
-      // Tally form ID: QKV4a7
-      const formData = new FormData();
-      formData.append('fields[first_name]', emailFormData.firstName);
-      formData.append('fields[last_name]', emailFormData.lastName);
-      formData.append('fields[email]', emailFormData.email);
+      const resourceData = RESOURCES.map(r => ({
+        icon: r.icon,
+        title: r.title,
+        desc: r.desc,
+        link: r.link,
+      }));
 
-      // Send to Tally (they accept form submissions via their API)
-      await fetch('https://tally.so/r/QKV4a7', {
+      const watchData = Object.entries(answers)
+        .filter(([qNum, val]) => {
+          if (val === "idk") return false;
+          const num = parseInt(qNum);
+          const q = QUESTIONS[num];
+          if (q.multiOption) return val === "neither";
+          return q.reverseLogic ? val === true : val === false;
+        })
+        .map(([qNum]) => QUESTIONS[parseInt(qNum)].watchFor);
+
+      await fetch('/api/send-guide', {
         method: 'POST',
-        body: formData,
-        mode: 'no-cors' // Tally doesn't return CORS headers, but the submission still works
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          firstName: firstName || '',
+          actionItems: collectedActions.map(a => ({
+            title: a.title,
+            detail: a.detail,
+            nextStep: a.nextStep || null,
+          })),
+          watchItems: watchData,
+          resources: resourceData,
+        }),
       });
-
-      // Mark as submitted (even with no-cors we assume success)
-      localStorage.setItem('pa-unplugged-email-submitted', 'true');
-      setEmailSubmitted(true);
-      setEmailFormData({ firstName: '', lastName: '', email: '' });
-
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      // Even on error, proceed (the submission likely worked with no-cors)
-      localStorage.setItem('pa-unplugged-email-submitted', 'true');
-      setEmailSubmitted(true);
-    } finally {
-      setEmailSubmitting(false);
+    } catch (err) {
+      console.error('Failed to send guide email:', err);
     }
+  };
+
+  // Open Tally popup for email collection
+  const handleEmailGate = () => {
+    if (typeof window.Tally === 'undefined') {
+      // Fallback: if Tally script hasn't loaded, just unlock results
+      console.warn('Tally embed script not loaded');
+      localStorage.setItem('pa-unplugged-email-submitted', 'true');
+      setEmailSubmitted(true);
+      return;
+    }
+
+    window.Tally.openPopup('QKV4a7', {
+      layout: 'modal',
+      hideTitle: false,
+      overlay: true,
+      autoClose: 2000,
+      onSubmit: (payload) => {
+        localStorage.setItem('pa-unplugged-email-submitted', 'true');
+        setEmailSubmitted(true);
+
+        // Extract email and name from Tally submission fields
+        // Tally payload: { fields: [{ type, title, answer: { value } }] }
+        console.log('Tally onSubmit payload:', JSON.stringify(payload, null, 2));
+        const fields = payload?.fields || [];
+        const emailField = fields.find(f => f.type === 'INPUT_EMAIL');
+        const nameField = fields.find(f => f.type === 'INPUT_TEXT' && f.title?.toLowerCase().includes('first'));
+        const email = emailField?.answer?.value;
+        const firstName = nameField?.answer?.value || '';
+
+        if (email) {
+          sendGuideEmail(email, firstName);
+        }
+      },
+    });
   };
 
 
@@ -2184,7 +2230,7 @@ Learn more at paunplugged.org`;
               {is11 !== null && !openSections.questions && (
                 <div className="btn-row">
                   <button className="btn btn-leaf" onClick={() => setOpenSections(prev => ({ ...prev, questions: true }))}>
-                    Continue to Questions →
+                    Move On to Assessing Device Use →
                   </button>
                 </div>
               )}
@@ -2213,9 +2259,10 @@ Learn more at paunplugged.org`;
                 Answer each question about your school. Your answers will generate personalized action items.
               </p>
 
-              {[1, 2, 3, 5, 4, 6, 7].map(qNum => {
+              {[1, 2, 3, 4, 5, 6, 7].map((qNum, idx) => {
                 const q = QUESTIONS[qNum];
                 const answered = answers[qNum];
+                const displayNum = idx + 1;
                 const getBadgeClass = () => {
                   if (q.multiOption) {
                     if (answered === "idk") return "idk";
@@ -2247,7 +2294,7 @@ Learn more at paunplugged.org`;
                     className={`question-row ${getRowClass()}`}
                   >
                     <div className="question-row-header">
-                      <div className="question-num">{qNum}</div>
+                      <div className="question-num">{displayNum}</div>
                       <div className="question-text">
                         {q.text}
                         {q.sub && <div style={{ fontSize: 12, color: "var(--forest-mid)", marginTop: 4, fontWeight: 400 }}>{q.sub}</div>}
@@ -2264,7 +2311,7 @@ Learn more at paunplugged.org`;
                       <div className="yn-row" style={{ marginTop: 12, marginLeft: 36 }}>
                         <button className="yn-btn" onClick={() => answerQuestion(qNum, true)}>Yes</button>
                         <button className="yn-btn" onClick={() => answerQuestion(qNum, false)}>No</button>
-                        {qNum !== 1 && <button className="yn-btn" onClick={() => answerQuestion(qNum, "idk")}>I don't know</button>}
+                        {qNum !== 1 && qNum !== 5 && qNum !== 6 && qNum !== 7 && <button className="yn-btn" onClick={() => answerQuestion(qNum, "idk")}>I don't know</button>}
                       </div>
                     )}
 
@@ -2348,6 +2395,26 @@ Learn more at paunplugged.org`;
             </div>
           )}
         </div>
+
+        {/* ─── INCOMPLETE NOTICE ─── */}
+        {openSections.questions && questionsAnswered > 0 && !questionsComplete && (
+          <div style={{
+            marginTop: 16, padding: "14px 18px", background: "#fff8e6",
+            border: "1.5px solid #e6c84a", borderRadius: 10,
+            display: "flex", alignItems: "center", gap: 12
+          }}>
+            <span style={{ fontSize: 20 }}>⚠️</span>
+            <span style={{ fontSize: 14, color: "var(--forest)" }}>
+              You've answered {questionsAnswered} of 7 questions. Answer all 7 to see your personalized action plan.
+              {(() => {
+                const unanswered = [1,2,3,4,5,6,7].filter(n => answers[n] === undefined);
+                return unanswered.length <= 3
+                  ? ` Missing: ${unanswered.map(n => `Q${n}`).join(', ')}.`
+                  : '';
+              })()}
+            </span>
+          </div>
+        )}
 
         {/* ─── SUMMARY (when complete) ─── */}
         {questionsComplete && (
@@ -2550,51 +2617,14 @@ Learn more at paunplugged.org`;
             ) : (
               <>
                 <p style={{ fontSize: 14, color: "var(--forest-mid)", marginBottom: 8, lineHeight: 1.5 }}>
-                  You've worked through every question — nice work. Enter your info below to see your personalized action items, draft emails, and downloadable guide.
+                  You've worked through every question — nice work. Enter your info below to see your personalized action items, draft emails, and downloadable guide. We'll also send a copy of your personalized guide to your email.
                 </p>
-                <form className="modal-form" onSubmit={handleEmailSubmit} style={{ textAlign: "left", marginTop: 16 }}>
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label htmlFor="gate-firstName">First Name</label>
-                      <input
-                        type="text"
-                        id="gate-firstName"
-                        placeholder="First name"
-                        value={emailFormData.firstName}
-                        onChange={(e) => setEmailFormData(prev => ({ ...prev, firstName: e.target.value }))}
-                        required
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="gate-lastName">Last Name</label>
-                      <input
-                        type="text"
-                        id="gate-lastName"
-                        placeholder="Last name"
-                        value={emailFormData.lastName}
-                        onChange={(e) => setEmailFormData(prev => ({ ...prev, lastName: e.target.value }))}
-                        required
-                      />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="gate-email">Email</label>
-                    <input
-                      type="email"
-                      id="gate-email"
-                      placeholder="you@example.com"
-                      value={emailFormData.email}
-                      onChange={(e) => setEmailFormData(prev => ({ ...prev, email: e.target.value }))}
-                      required
-                    />
-                  </div>
-                  <button type="submit" className="modal-submit" disabled={emailSubmitting} style={{ width: "100%" }}>
-                    {emailSubmitting ? 'Submitting...' : 'See My Results'}
-                  </button>
-                  <p style={{ fontSize: 12, color: "var(--forest-mid)", marginTop: 10, textAlign: "center", lineHeight: 1.4 }}>
-                    You'll also receive occasional updates from PA Unplugged. We respect your privacy.
-                  </p>
-                </form>
+                <button className="modal-submit" onClick={handleEmailGate} style={{ width: "100%", marginTop: 16 }}>
+                  Enter Your Info to See Results
+                </button>
+                <p style={{ fontSize: 12, color: "var(--forest-mid)", marginTop: 10, textAlign: "center", lineHeight: 1.4 }}>
+                  You'll also receive occasional updates from PA Unplugged. We respect your privacy.
+                </p>
               </>
             )}
           </div>
