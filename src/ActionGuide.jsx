@@ -1359,21 +1359,23 @@ const IDK_ACTION_MAP = {
 /* ─── QUESTION DEFINITIONS ──────────────────────────────────────────────── */
 const QUESTIONS = {
   1: {
-    text: "Do students bring devices home in elementary school?",
+    text: "Do students bring devices home overnight?",
     sub: null,
-    actionText: "Push for devices to stay at school through at least 5th grade — ideally through middle school. Ask the school to limit or eliminate home device use.",
+    ageNote: "Devices going home overnight is most concerning in elementary and middle school. In high school it's more standard, but it's still worth knowing the policy.",
+    actionText: "For elementary students, push for devices to stay at school. For middle school, limit take-home to as-needed. For high school, focus on clear guidelines and parental visibility.",
     action: (
       <div className="action-block">
         <div className="action-block-header"><span className="action-tag">Action</span></div>
-        <p><strong>Push for devices to stay at school through at least 5th grade — ideally through middle school.</strong></p>
-        <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> When devices come home, they add unsupervised screen time, compete with family time and physical play, and put parents in the position of policing yet another screen. Homework in elementary school should be paper and pencil — there's no reason it needs to involve a screen. Keeping school devices at school creates a clearer boundary and one less thing to manage at home.</p>
-        <p style={{ marginTop: 10 }}>If your school already sends devices home, ask what the rationale is and request that devices be kept at school through elementary school and only sent home on a limited, as-needed basis in middle school.</p>
+        <p><strong>For elementary students:</strong> Push for devices to stay at school. Homework should be paper and pencil — there's no reason it needs to involve a screen.</p>
+        <p style={{ marginTop: 10 }}><strong>For middle school:</strong> Push for devices to stay at school whenever possible, and only come home on a limited, as-needed basis for specific assignments.</p>
+        <p style={{ marginTop: 10 }}><strong>For high school:</strong> Devices going home is more standard, but you should still know the policy. Focus on clear guidelines for home use and parental visibility into what's on the device.</p>
+        <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> When devices come home, they add unsupervised screen time, compete with family time and physical play, and put parents in the position of policing yet another screen. The younger the child, the more important it is to keep that boundary clear. Even for older students, knowing what's on the device and how it's being used at home helps you stay informed.</p>
       </div>
     ),
     watchFor: "Good — devices staying at school is a strong baseline. Find out when that changes — what grade do devices start going home? If it's middle school, consider pushing to delay it or limit the number of days per week they come home.",
   },
   2: {
-    text: "Does the school allow device use during arrival, dismissal, recess, or downtime?",
+    text: "Does the school allow device use during non-instructional time (e.g., recess, downtime, lunch, etc.)?",
     sub: null,
     actionText: "Advocate for a clear policy: no device use during non-instructional times.",
     action: (
@@ -1388,6 +1390,7 @@ const QUESTIONS = {
   3: {
     text: "Does the school use screentime or games as a reward?",
     sub: "This includes letting students play games or use apps as a treat for good behavior or finishing work early.",
+    ageNote: "Most common in elementary school, but it happens in middle school too. Less typical in high school.",
     actionText: "Advocate for eliminating screentime and screen-based activities as a reward or choice time option. Offer to help supply non-screen alternatives.",
     action: (
       <div className="action-block">
@@ -1402,6 +1405,7 @@ const QUESTIONS = {
   4: {
     text: "Does the school allow access to YouTube or generative AI chatbots (e.g. ChatGPT, Gemini)?",
     sub: null,
+    ageNote: "Relevant at all levels. YouTube is a concern across the board. AI chatbots are increasingly showing up in middle and high school.",
     multiOption: true,
     options: [
       { value: "both", label: "Yes, both" },
@@ -2333,6 +2337,7 @@ Learn more at paunplugged.org`;
                       <div className="question-text">
                         {q.text}
                         {q.sub && <div style={{ fontSize: 12, color: "var(--forest-mid)", marginTop: 4, fontWeight: 400 }}>{q.sub}</div>}
+                        {q.ageNote && <div style={{ fontSize: 12, color: "#8a7a5a", marginTop: 4, fontWeight: 400, fontStyle: "italic" }}>{q.ageNote}</div>}
                       </div>
                       {answered !== undefined && (
                         <span className={`question-answer-badge ${getBadgeClass()}`}>
