@@ -1335,7 +1335,7 @@ const GlobalStyles = () => (
 /* ─── ACTION MAP (collected on Yes answers) ─────────────────────────────── */
 const ACTION_MAP = {
   1: { id: "q1", title: "Keep devices at school", detail: "Push for devices to stay at school through at least 5th grade — ideally through middle school." },
-  2: { id: "q2", title: "No devices during non-instructional time", detail: "Advocate for a clear policy: no device use during arrival, dismissal, recess, or downtime." },
+  2: { id: "q2", title: "No devices during non-instructional time", detail: "Advocate for a clear policy: no device use during recess, lunch, downtime, or other non-instructional times." },
   3: { id: "q3", title: "Remove screentime as reward", detail: "Advocate for eliminating screentime and screen-based activities as a reward or choice time option. Offer to help supply non-screen alternatives." },
   "4-both": { id: "q4-both", title: "Restrict YouTube, chatbots & browser", detail: "Remove YouTube and generative AI chatbot access. Restrict the browser — push for whitelisting so only approved sites are accessible." },
   "4-youtube": { id: "q4-youtube", title: "Remove YouTube access", detail: "Push to remove YouTube from student devices. Even 'educational' videos lead to endless autoplay rabbit holes." },
@@ -1348,7 +1348,7 @@ const ACTION_MAP = {
 /* ─── IDK ACTION MAP (collected on "I don't know" answers) ─── */
 const IDK_ACTION_MAP = {
   1: { id: "q1-idk", title: "Find out if devices go home", detail: "Ask your child's teacher or the front office whether students bring devices home — and if so, starting in which grade.", nextStep: "If they do, push for devices to stay at school — especially through elementary and ideally middle school. If they don't yet, find out when that changes and consider pushing to delay it." },
-  2: { id: "q2-idk", title: "Find out about device use during downtime", detail: "Ask your child's teacher whether devices are allowed during arrival, dismissal, recess, or other non-instructional times.", nextStep: "If they are, advocate for a clear policy: no device use during non-instructional times. Kids need those unstructured moments for socializing and real breaks. If they aren't, great — but keep an eye on it, since unstructured device time is one of the easiest things to creep back in." },
+  2: { id: "q2-idk", title: "Find out about device use during non-instructional time", detail: "Ask your child's teacher whether devices are allowed during recess, lunch, downtime, or other non-instructional times.", nextStep: "If they are, advocate for a clear policy: no device use during non-instructional times. Kids need those unstructured moments for socializing and real breaks. If they aren't, great — but keep an eye on it, since unstructured device time is one of the easiest things to creep back in." },
   3: { id: "q3-idk", title: "Find out if screens are used as rewards", detail: "Ask your child or their teacher whether games, apps, or screen time are ever used as a reward or choice-time activity.", nextStep: "If so, advocate for eliminating screen-based rewards and offer to help supply non-screen alternatives like books, games, or art supplies. If not, that's good — ask your child occasionally to make sure it stays that way." },
   4: { id: "q4-idk", title: "Find out about YouTube & generative AI chatbot access", detail: "Ask the school whether students can access YouTube, generative AI chatbots (like ChatGPT or Gemini), or an open web browser on their devices.", nextStep: "If they can, push for YouTube and chatbot access to be removed and for the browser to be restricted — ideally whitelisted so only approved sites are accessible. If they can't access these tools, good — but new tools get added quickly, so check in periodically." },
   5: { id: "q5-idk", title: "Request the approved app list", detail: "Ask the district for a full list of approved apps and platforms, including how they're evaluated and who approves them.", nextStep: "If they can't provide one, that's a transparency gap worth raising. Every app collects data, and parents deserve to know what tools their kids are using. If they can, review it and make sure you understand how new apps get added." },
@@ -1377,12 +1377,13 @@ const QUESTIONS = {
   2: {
     text: "Does the school allow device use during non-instructional time (e.g., recess, downtime, lunch, etc.)?",
     sub: null,
-    actionText: "Advocate for a clear policy: no device use during non-instructional times.",
+    actionText: "Advocate for a clear policy: no device use during non-instructional times like recess, lunch, and downtime.",
     action: (
       <div className="action-block">
         <div className="action-block-header"><span className="action-tag">Action</span></div>
-        <p>Advocate for a clear policy: <strong>no device use during non-instructional times.</strong></p>
-        <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> Allowing device use during transitional or downtime moments prevents kids from socializing, moving their bodies, and getting a true mental break. These unstructured moments are where friendships form and social skills develop. When devices fill that space, kids lose those opportunities and screens become the default way to pass time.</p>
+        <p><strong>For elementary and middle school:</strong> Push for a clear policy: no device use during recess, lunch, downtime, or any other non-instructional time. These are the moments kids need most for socializing, moving their bodies, and getting a real mental break.</p>
+        <p style={{ marginTop: 10 }}><strong>For high school:</strong> Advocate for clear boundaries around device use during lunch, study halls, and free periods. Even older students benefit from screen-free time during the day, and unstructured device access often leads to social media and other distractions.</p>
+        <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> Non-instructional time is where friendships form and social skills develop. When devices fill that space, kids lose those opportunities and screens become the default way to pass time. This applies at every age.</p>
       </div>
     ),
     watchFor: "Good — unstructured device time is one of the easiest things to creep back in. If you ever notice kids on devices during recess or waiting periods, that's a sign the policy needs reinforcing.",
@@ -1419,27 +1420,24 @@ const QUESTIONS = {
       both: (
         <div className="action-block">
           <div className="action-block-header"><span className="action-tag">Action</span></div>
-          <ul>
-            <li>Remove YouTube access from student devices</li>
-            <li>Remove generative AI chatbot access (ChatGPT, Gemini, etc.)</li>
-            <li>Restrict the internet browser — push for <strong>whitelisting</strong> so only approved sites are accessible</li>
-          </ul>
-          <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> YouTube is a rabbit hole — even "educational" videos lead to endless recommendations via autoplay, often irrelevant and sometimes inappropriate. Generative AI chatbots can do students' work for them, bypassing the learning process entirely. An open browser is an open door. Whitelisting ensures kids can only access what's been intentionally approved.</p>
+          <p><strong>For elementary and middle school:</strong> Push to remove both YouTube and generative AI chatbot access entirely. Restrict the browser so only approved, whitelisted sites are accessible. If a teacher needs to show a video, they can use a shared screen.</p>
+          <p style={{ marginTop: 10 }}><strong>For high school:</strong> Push to remove generative AI chatbot access entirely. For YouTube, push for restricted access limited to teacher-approved instructional content rather than open browsing. The browser should still be restricted to approved sites.</p>
+          <p style={{ marginTop: 10 }}><strong>At every level:</strong> Generative AI chatbots should not be on student devices. They can do students' work for them, bypassing the learning process entirely. YouTube is a rabbit hole at any age, but for older students, limited access to specific instructional videos may be reasonable if properly managed.</p>
         </div>
       ),
       youtube: (
         <div className="action-block">
           <div className="action-block-header"><span className="action-tag">Action</span></div>
-          <p><strong>Push to remove YouTube access from student devices.</strong></p>
-          <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> YouTube is a rabbit hole — even "educational" videos lead to endless recommendations via autoplay, often irrelevant and sometimes inappropriate. It's a major distraction and should be blocked entirely. If teachers need to show a video, they can use a shared screen.</p>
+          <p><strong>For elementary and middle school:</strong> Push to remove YouTube access entirely. Even "educational" videos lead to endless recommendations via autoplay, often irrelevant and sometimes inappropriate. If a teacher needs to show a video, they can use a shared screen.</p>
+          <p style={{ marginTop: 10 }}><strong>For high school:</strong> Push for restricted YouTube access limited to teacher-approved instructional content rather than open browsing.</p>
           <p style={{ marginTop: 10 }}>Good that generative AI chatbots are already restricted — make sure that stays in place as new AI tools emerge.</p>
         </div>
       ),
       ai: (
         <div className="action-block">
           <div className="action-block-header"><span className="action-tag">Action</span></div>
-          <p><strong>Push to remove generative AI chatbot access (ChatGPT, Gemini, etc.) from student devices.</strong></p>
-          <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> Generative AI chatbots can do students' work for them — writing essays, solving math problems, answering questions — completely bypassing the learning process. Students need to develop these skills themselves, not outsource them to a chatbot.</p>
+          <p><strong>Push to remove generative AI chatbot access (ChatGPT, Gemini, etc.) from student devices at all grade levels.</strong></p>
+          <p style={{ marginTop: 10 }}><strong>Why this matters:</strong> Generative AI chatbots can do students' work for them — writing essays, solving math problems, answering questions — completely bypassing the learning process. Students need to develop these skills themselves, not outsource them to a chatbot. This applies equally to a 3rd grader and a 12th grader.</p>
           <p style={{ marginTop: 10 }}>Good that YouTube is already blocked — make sure it stays that way.</p>
         </div>
       ),
