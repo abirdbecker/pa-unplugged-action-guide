@@ -1714,15 +1714,21 @@ function generateEmail({ recipient, actionItems }) {
     const asks = topItems.map((item) => {
       const askMap = {
         q1: "how the school handles devices going home — specifically whether there's flexibility to keep them at school, especially in the younger grades",
+        "q1-idk": "whether students bring devices home, and if so, starting in which grade — and whether there's flexibility to keep them at school",
         q2: "whether there are guidelines around device use during non-instructional times like recess, arrival, and dismissal",
+        "q2-idk": "whether devices are allowed during non-instructional times like arrival, dismissal, recess, or lunch — and if so, whether there are guidelines around that",
         q3: "how screen-based rewards or choice-time activities factor into the classroom — and whether non-screen alternatives could be prioritized",
+        "q3-idk": "whether games, apps, or screen time are ever used as a reward or choice-time activity — and whether non-screen alternatives could be prioritized",
         "q4-both": "what access controls are in place for things like YouTube, generative AI chatbots, and open web browsing on student devices",
         "q4-youtube": "whether YouTube access on student devices could be restricted, since even 'educational' videos lead to autoplay rabbit holes",
         "q4-ai": "whether access to generative AI chatbots like ChatGPT and Gemini could be restricted on student devices",
         "q4-idk": "what access controls are in place for things like YouTube, generative AI chatbots, and open web browsing on student devices",
         q5: "whether there's a published list of approved apps and platforms, along with the criteria used to evaluate them",
+        "q5-idk": "whether there's a full list of approved apps and platforms I could review, along with the criteria used to evaluate them",
         q6: "whether daily screen time is being tracked and whether there are guidelines for how much time students spend on devices each day",
+        "q6-idk": "how much time students spend on devices each day, whether anyone is tracking it, and whether there are any daily limits in place",
         q7: "how the balance between device-based and hands-on learning works in practice — things like physical books vs. screens, handwriting vs. typing, and research skills",
+        "q7-idk": "how much work is done on devices versus with paper, pencil, and physical books — and how the balance between digital and hands-on learning is managed",
       };
       return askMap[item.id] || item.detail.toLowerCase();
     });
