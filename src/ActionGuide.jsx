@@ -792,6 +792,23 @@ const GlobalStyles = () => (
       border-color: #fff;
     }
 
+    /* ─── FOOTER ─── */
+    .footer {
+      text-align: center;
+      padding: 40px 0 20px;
+      font-size: 0.8rem;
+      color: var(--sand);
+      border-top: 1px solid var(--warm);
+      margin-top: 40px;
+    }
+    .footer a {
+      color: var(--forest-mid);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
     /* ─── PRINT-SPECIFIC STYLES ─── */
     @media print {
       * {
@@ -2635,6 +2652,15 @@ Learn more at paunplugged.org`;
             Start over
           </button>
         </div>
+
+        <footer className="footer">
+          <p>
+            A project of{' '}
+            <a href="https://paunplugged.org" target="_blank" rel="noopener noreferrer">
+              PA Unplugged
+            </a>
+          </p>
+        </footer>
       </div>
 
       {/* ─── PRINT VIEW (hidden on screen, shown in print) ─── */}
