@@ -36,7 +36,7 @@ const GlobalStyles = () => (
     }
 
     .app-shell {
-      max-width: 860px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 0 16px 80px;
     }
@@ -247,13 +247,15 @@ const GlobalStyles = () => (
     }
 
     /* ─── HOMEWORK LIST (Found/Not Found) ─── */
-    .homework-list { display: flex; flex-direction: column; gap: 14px; }
+    .homework-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     .homework-item {
       border-radius: 10px;
       border: 1.5px solid var(--sand);
       background: var(--warm);
       padding: 16px;
       transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     .homework-item.found {
       border-color: var(--green-accent);
@@ -271,14 +273,17 @@ const GlobalStyles = () => (
     }
     .hw-button-row {
       display: flex;
-      gap: 8px;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 10px;
     }
     .hw-btn {
-      flex: 1;
+      width: 100%;
       font-family: 'Inter Tight', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      padding: 10px 14px;
+      padding: 8px 12px;
       border-radius: 6px;
       border: 1.5px solid var(--sand);
       background: #fff;
@@ -807,6 +812,10 @@ const GlobalStyles = () => (
     }
     .footer a:hover {
       text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .homework-list { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* ─── PRINT-SPECIFIC STYLES ─── */
@@ -1493,7 +1502,7 @@ const QUESTIONS = {
 /* ─── HOMEWORK ITEMS ─── */
 const HW_ITEMS = [
   { id: "policy", label: "School board policy / handbook rules", desc: "The official rules governing how devices are used, stored, and managed at school.", hint: "Check the district website under Policies, School Board, or Board of Education.", notFound: "That's actually useful to know — it means there may not be a clear, accessible policy (which is worth raising)." },
-  { id: "philosophy", label: "Technology philosophy or position statement", desc: "The district's stated beliefs about the role of technology in education.", hint: "Could be found on your district's website under Curriculum, Academics, or About. Try searching the site for \"screen time\" or \"technology vision\" or \"technology position statement.\" If nothing comes up, that itself is useful information.", notFound: "Most districts don't publish one. If they can't articulate their philosophy, that's a conversation worth starting." },
+  { id: "philosophy", label: "Technology philosophy or position statement", desc: "The district's stated beliefs about the role of technology in education.", hint: "Could be found on your district's website under Curriculum, Academics, or About. Try searching the site for \"screen time\" or \"technology vision\" or \"technology position statement.\"", notFound: "Most districts don't publish one. If they can't articulate their philosophy, that's a conversation worth starting." },
   { id: "curriculum", label: "Digital literacy curriculum", desc: "What students are taught about using technology responsibly and safely.", hint: "Look under Curriculum or Instruction on the district site. If you can't find it, try emailing the curriculum director — they'll know whether one exists or if it's something the district hasn't adopted yet.", notFound: "Not unusual — many districts haven't formalized this yet." },
   { id: "ai", label: "AI guidelines & policy", desc: "Rules about whether and how AI tools like ChatGPT can be used by students.", hint: "This is newer territory for most districts. Many schools are still figuring this out, so you may hear \"we don't have one yet.\" Hopefully — they're working on one! More on that later.", notFound: "No surprise here — most districts are still figuring this out. If they're not, they should be." },
 ];
@@ -2124,7 +2133,7 @@ Learn more at paunplugged.org`;
             <span className="survey-prompt-icon">📊</span>
             <div className="survey-prompt-text">
               <strong>Before you start, take 5 minutes to complete our Ed Tech Survey.</strong>
-              <span>We're building a public dashboard to show how parents across Pennsylvania feel about school technology. Your response helps us understand the full picture — and strengthens the case for change.</span>
+              <span>We're building a public dashboard to show how parents across Pennsylvania feel about school technology. Your response helps us understand the full picture and strengthens the case for change.</span>
             </div>
             <a
               href={SURVEY_URL}
@@ -2159,7 +2168,7 @@ Learn more at paunplugged.org`;
           {openSections.prep && (
             <div className="accordion-body">
               <p style={{ fontSize: 14, color: "var(--forest-mid)", marginBottom: 18, lineHeight: 1.5 }}>
-                Before engaging your school, try to find these documents. It's okay if you can't find them — that's useful information too.
+                First, try to find these documents. It's okay if you can't find them — that's useful information too.
               </p>
 
               <div className="homework-list">
