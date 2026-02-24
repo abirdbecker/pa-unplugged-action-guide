@@ -52,7 +52,7 @@ const GlobalStyles = () => (
       gap: 1.5rem;
     }
     .header-logo {
-      height: 128px;
+      height: 64px;
       width: auto;
       flex-shrink: 0;
     }
