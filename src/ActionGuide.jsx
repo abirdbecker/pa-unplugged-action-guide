@@ -43,36 +43,35 @@ const GlobalStyles = () => (
 
     /* ─── HEADER ─── */
     .header {
-      padding: 40px 0 32px;
+      padding: 2.5rem 0 1.5rem;
+      border-bottom: 2px solid var(--sage);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
     }
-    .header-badge {
-      display: inline-block;
-      background: var(--forest);
-      color: var(--cream);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 2.2px;
-      text-transform: uppercase;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 12px;
+    .header-logo {
+      height: 64px;
+      width: auto;
+      flex-shrink: 0;
     }
     .header h1 {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2rem;
       font-weight: 800;
       color: var(--forest);
       line-height: 1.05;
       text-transform: uppercase;
       letter-spacing: 0.02em;
-      margin-bottom: 6px;
     }
-    .header p {
-      font-family: 'Inter Tight', sans-serif;
-      color: var(--forest-mid);
-      font-size: 0.95rem;
-      line-height: 1.55;
+    .header-title-line1 {
+      display: block;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+    }
+    .header-title-line2 {
+      display: block;
+      font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+      opacity: 0.75;
     }
 
     /* ─── INTRO SECTION ─── */
@@ -2123,8 +2122,11 @@ Learn more at paunplugged.org`;
       <GlobalStyles />
       <div className="app-shell">
         <div className="header">
-          <h1>PA Unplugged Ed Tech Advocacy Guide</h1>
-          <p>Chart your own path.</p>
+          <h1>
+            <span className="header-title-line1">PA Unplugged</span>
+            <span className="header-title-line2">EdTech Advocacy Guide</span>
+          </h1>
+          <img src="/logo.png" alt="PA Unplugged" className="header-logo" />
         </div>
 
         <div className="intro-section">
