@@ -2123,8 +2123,7 @@ Learn more at paunplugged.org`;
       <div className="app-shell">
         <div className="header">
           <h1>
-            <span className="header-title-line1">PA Unplugged</span>
-            <span className="header-title-line2">EdTech Advocacy Guide</span>
+            <span className="header-title-line1">EdTech Advocacy Guide</span>
           </h1>
           <img src="/logo-short.png" alt="PA Unplugged" className="header-logo" />
         </div>
@@ -2181,20 +2180,6 @@ Learn more at paunplugged.org`;
                   >
                     <div className="hw-item-label">{item.label}</div>
                     <div style={{ fontSize: 13, color: "var(--forest-mid)", marginBottom: 12, lineHeight: 1.4 }}>{item.desc}</div>
-                    <div className="hw-button-row">
-                      <button
-                        className={`hw-btn found-btn ${hwStatus[item.id] === "found" ? "selected" : ""}`}
-                        onClick={() => setHwItemStatus(item.id, "found")}
-                      >
-                        ✓ Found it
-                      </button>
-                      <button
-                        className={`hw-btn not-found-btn ${hwStatus[item.id] === "not_found" ? "selected" : ""}`}
-                        onClick={() => setHwItemStatus(item.id, "not_found")}
-                      >
-                        ✗ Didn't find it
-                      </button>
-                    </div>
                     <button
                       className={`hw-hint-toggle ${hwHints[item.id] ? "open" : ""}`}
                       onClick={(e) => toggleHint(item.id, e)}
@@ -2210,6 +2195,20 @@ Learn more at paunplugged.org`;
                         {item.notFound}
                       </div>
                     )}
+                    <div className="hw-button-row">
+                      <button
+                        className={`hw-btn found-btn ${hwStatus[item.id] === "found" ? "selected" : ""}`}
+                        onClick={() => setHwItemStatus(item.id, "found")}
+                      >
+                        ✓ Found it
+                      </button>
+                      <button
+                        className={`hw-btn not-found-btn ${hwStatus[item.id] === "not_found" ? "selected" : ""}`}
+                        onClick={() => setHwItemStatus(item.id, "not_found")}
+                      >
+                        ✗ Didn't find it
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -2219,7 +2218,7 @@ Learn more at paunplugged.org`;
                   <p>
                     {Object.values(hwStatus).some(v => v === "found")
                       ? <><strong>Great.</strong> Read through what you found — you can reference these documents directly in conversations with the district.</>
-                      : <><strong>That's okay.</strong> Not having these documents is itself important information. It means the district may lack clear policies — something worth raising.</>
+                      : <><strong>That's okay.</strong> You can still move forward. Consider reaching out to ask whether any of these documents exist but just aren't easy to find — and if they don't exist yet, asking the question may be the first step toward getting them developed.</>
                     }
                   </p>
                 </div>
