@@ -52,7 +52,7 @@ const GlobalStyles = () => (
       gap: 1.5rem;
     }
     .header-logo {
-      height: 64px;
+      height: clamp(1.8rem, 5vw, 3.2rem);
       width: auto;
       flex-shrink: 0;
     }
