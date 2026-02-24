@@ -2126,7 +2126,7 @@ Learn more at paunplugged.org`;
             <span className="header-title-line1">PA Unplugged</span>
             <span className="header-title-line2">EdTech Advocacy Guide</span>
           </h1>
-          <img src="/logo.png" alt="PA Unplugged" className="header-logo" />
+          <img src="/logo-short.png" alt="PA Unplugged" className="header-logo" />
         </div>
 
         <div className="intro-section">
