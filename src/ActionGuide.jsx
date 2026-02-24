@@ -2217,7 +2217,7 @@ Learn more at paunplugged.org`;
                 <div className="info-block" style={{ marginTop: 20 }}>
                   <p>
                     {Object.values(hwStatus).some(v => v === "found")
-                      ? <><strong>Great.</strong> Read through what you found — you can reference these documents directly in conversations with the district.</>
+                      ? <><strong>Great.</strong> Read through what you found — you can reference these documents directly in conversations with administrators.</>
                       : <><strong>That's okay.</strong> You can still move forward. Consider reaching out to ask whether any of these documents exist but just aren't easy to find — and if they don't exist yet, asking the question may be the first step toward getting them developed.</>
                     }
                   </p>
