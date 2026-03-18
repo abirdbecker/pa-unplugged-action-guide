@@ -42,6 +42,20 @@ const GlobalStyles = () => (
     }
 
     /* ─── HEADER ─── */
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--forest);
+      opacity: 0.5;
+      transition: opacity 0.2s;
+      text-decoration: none;
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+    }
+    .home-link:hover { opacity: 1; }
     .header {
       padding: 2.5rem 0 1.5rem;
       border-bottom: 2px solid var(--sage);
@@ -2122,6 +2136,9 @@ Learn more at paunplugged.org`;
       <GlobalStyles />
       <div className="app-shell">
         <div className="header">
+          <a href="https://paunplugged.org" className="home-link" title="PA Unplugged Home">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12L12 3l9 9"/><path d="M5 10v10a1 1 0 001 1h3v-6h6v6h3a1 1 0 001-1V10"/></svg>
+          </a>
           <h1>
             <span className="header-title-line1">EdTech Advocacy Guide</span>
           </h1>
